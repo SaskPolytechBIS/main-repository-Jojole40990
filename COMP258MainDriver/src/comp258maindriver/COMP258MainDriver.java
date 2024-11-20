@@ -18,5 +18,8 @@ public class COMP258MainDriver {
         System.out.println("Hello GitHub 1234");
         
     }
-    
+    public static void printBranchMessage(){
+        System.out.println("Add new Branch");
+        
+    }
 }
