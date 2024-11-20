@@ -17,10 +17,11 @@ public class COMP258MainDriver {
         // TODO code application logic here
         System.out.println("Hello GitHub 1234");
         printBranchMessage();
-        
+
     }
     public static void printBranchMessage(){
         System.out.println("Add new Branch");
         
     }
+
 }
