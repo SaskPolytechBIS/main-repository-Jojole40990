@@ -6,16 +6,20 @@ package arraymanager;
 
 /**
  *
- * @author PC
+ * @author joshu
  */
-public class NoItemException extends Exception{
+public class NoItemsException extends Exception{
     
     // passes in a default message to the super constructor
-    public NoItemException() {
-        super("There are no items on which to performs this action");
+    public NoItemsException()
+    {
+        super("Thre are no items on which to perform this action");
     }
+    
     // allow the program to add a more specific error message to display
-    public NoItemException(String errorMessage) {
+    public NoItemsException(String errorMessage)
+    {
         super(errorMessage);
     }
+    
 }

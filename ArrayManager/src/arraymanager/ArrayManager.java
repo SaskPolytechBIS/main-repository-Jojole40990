@@ -45,22 +45,30 @@ public class ArrayManager {
 
     public boolean isEmpty() {
         boolean result = false;
+        if (size == 0 || items.length == 0) {
+            result = true;
+        }
+
         return result;
     }
 
     //print out array
     public void printArray() {
-        System.out.println("Lenght of item is " + items.length);
-        System.out.println("the number item contains is " + size);
+        System.out.println("========================================");
+        System.out.println("The lenght of item is: " + items.length);
+        System.out.println("The number of items array contain is: " + size);
 
-        System.out.println("Print out all variable");
+        System.out.println("Print out all visible items");
         for (int i = 0; i < size; i++) {
-            System.out.printf("Item[%d]: %d\n", i, items[i]);
+            System.out.printf("items[%d]: %d\n", i, items[i]);
         }
-        System.out.println("Print out all variable");
-        for (int i = 0; i < size; i++) {
-            System.out.printf("Item[%d]: %d\n", i, items[i]);
+
+        System.out.println("Print out true contain of the array");
+        for (int i = 0; i < items.length; i++) {
+            System.out.printf("items[%d]: %d\n", i, items[i]);
         }
+        System.out.println("========================================");
+
     }
 
     //replaces the data array with a new, larger array that has all the same information in it
@@ -91,23 +99,25 @@ public class ArrayManager {
     }
 
     //remove the item at specific index
-    public void remove(int index) throws NoItemException {
-
-        if (isEmpty()) {
-            throw new NoItemException("Error");
-            //asdas
+    public void remove(int index) throws NoItemsException {
+  if(isEmpty())
+        {
+            throw new NoItemsException("Cannot remove an item from an empty array");
         }
-
-        //reduce the size before copying
+   
+        //reducing the size before copying to make sure we dont encounter the outofbound exceptions
         size--;
+        
         //start at index
-        //take the item after index and copy its overtop of index
-        //do that with akk other items till the end of the list
-        for (int i = index; i < size; i++) {
+        //take the after index and copy its value overtop of index
+        //do that with all item other item until the end of the list
+        
+        for(int i = index; i < size; i++)
+        {
             items[i] = items[i + 1];
         }
-        items[index] = items[index + 1];
-
+        
+        
     }
 
     //adds an item at the specified index in the array
@@ -137,37 +147,43 @@ public class ArrayManager {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        //int[] data = new int[]{11,22,33,44,55,66,77,88,99,100};
+       int[] data = new int[]{11, 22, 23, 44, 55, 66, 77, 88, 99, 100};
         ArrayManager am = new ArrayManager();
-        try {
+        
+        try
+        {
             am.remove(5);
-
-        } catch (NoItemException nie) {
+        }
+        catch(NoItemsException nie)
+        {
             nie.printStackTrace();
         }
-        am.add(1);
-        am.add(2);
-        am.add(3);
-        am.add(4);
-        am.add(5);
-
-        am.add(6);
-        am.add(7);
-        am.add(8);
-        am.add(9);
-        am.add(10);
-
+        
+        am.add(11);
+        am.add(22);
+        am.add(33);
+        am.add(44);
+        am.add(55);
+        am.add(66);
+        am.add(77);
+        am.add(88);
+        am.add(99);
+        am.add(100);
+        
         am.printArray();
-
-        am.addAt(99, 5);
-
-        am.printArray();
-        try {
-            am.remove(1);
-
-        } catch (NoItemException nie) {
+        
+        //am.addAt(123, 5);
+        //am.printArray();
+        
+        try
+        {
+            am.remove(5);
+        }
+        catch(NoItemsException nie)
+        {
             nie.printStackTrace();
         }
+        
         am.printArray();
     }
 
