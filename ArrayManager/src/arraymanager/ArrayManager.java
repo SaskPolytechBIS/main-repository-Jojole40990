@@ -95,7 +95,7 @@ public class ArrayManager {
 
         if (isEmpty()) {
             throw new NoItemException("Error");
-
+            //asdas
         }
 
         //reduce the size before copying
