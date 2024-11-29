@@ -9,22 +9,22 @@ package linkedlist;
  * @author PC
  */
 public class ListNode {
-    private Object data;
+  private Object data;
     public ListNode next;
-    
-    public ListNode (){
-        
-    }
-    
-    public ListNode (Object data){
-        
+
+    public ListNode() {
     }
 
-    public ListNode getData() {
-        return next;
+    public ListNode(Object data) {
+        this.data = data;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
     }
     
-    public ListNode getData(Object data) {
-        return next;
-    }
 }

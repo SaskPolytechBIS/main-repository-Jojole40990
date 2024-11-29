@@ -66,41 +66,55 @@ public class LinkedList {
             }while(parser != null);
         }
     }
-    public static void main(String[] args) {
-        LinkedList ll = new LinkedList();
-        
-        System.out.println("****");
-        ll.add(11);
-        ll.add(22);
-        ll.add(33);
-        ll.add("FF");
-        ll.add(55);
-        
-        
-        System.out.println("****");
-        ll.printList();
-        System.out.println("****");
-        ll.start();
-        System.out.println("data is "+ll.getCurrent());
-        
-        ll.advance();
-        System.out.println("data is "+ll.getCurrent());
-    }
-    public void start(){
-        current = items;
+    public void start()
+    {
+         current = items;
     }
     
-    //moving to next node
-    public void advance(){
-        boolean result = true;//return true if can go next
-        
-        if(current.next != null){
+     //if there is a next node, change current to be equal to the next node in the list
+    public boolean advance()
+    {
+        // returns true if current is able to go to the next node
+        boolean result = false; 
+        if(current.next != null)
+        {
+            result = true;
             current = current.next;
         }
         
+        return result;
     }
     
     public Object getCurrent(){
         return current.getData();
     }
+    
+    public static void main(String[] args) {
+        // TODO code application logic here
+        LinkedList ll = new LinkedList();
+        
+        System.out.println("--- Adding items to list ---");
+        
+        ll.add(11);
+        ll.add(22);
+        ll.add(33);
+        ll.add("Fourty-four");
+        ll.add(55);
+        
+        System.out.println("--- Printing List ---");
+        ll.printList();
+        
+        
+        System.out.println("--- Using Current ---");
+        ll.start();
+        
+        do
+        {
+            //print the data in current
+            System.out.println("The data in current is: " + ll.getCurrent());
+            
+        }while(ll.advance() == true); // while there is a next item to go to keep looping
+    }
+    
+   
 }
