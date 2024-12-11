@@ -4,6 +4,9 @@
  */
 package arraymanager;
 
+import java.util.Scanner;
+import java.util.Random;
+
 /**
  *
  * @author PC
@@ -83,7 +86,7 @@ public class ArrayManager {
         items = newArray;
     }
 
-    //add an iten to the end of array
+    //add an item to the end of array
     public void add(int newItem) {
 
         //check the room in array(size == array length)
@@ -100,28 +103,29 @@ public class ArrayManager {
 
     //remove the item at specific index
     public void remove(int index) throws NoItemsException {
-  if(isEmpty())
-        {
+        if (isEmpty()) {
             throw new NoItemsException("Cannot remove an item from an empty array");
         }
-   
+        if (index < 0 || index > size) {
+            throw new NoItemsException("Index out of bounds: " + index);
+        }
         //reducing the size before copying to make sure we dont encounter the outofbound exceptions
         size--;
-        
+
         //start at index
         //take the after index and copy its value overtop of index
         //do that with all item other item until the end of the list
-        
-        for(int i = index; i < size; i++)
-        {
+        for (int i = index; i < size; i++) {
             items[i] = items[i + 1];
         }
-        
-        
+
     }
 
     //adds an item at the specified index in the array
-    public void addAt(int newItem, int index) {
+    public void addAt(int newItem, int index) throws OutOfBoundsException {
+        if (index < 0 || index > size) {
+            throw new OutOfBoundsException("Index out of bounds: " + index);
+        }
         //check the room in array(size == array length)
         //if no more room >> resize the array
         if (size == items.length) {
@@ -147,44 +151,78 @@ public class ArrayManager {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       int[] data = new int[]{11, 22, 23, 44, 55, 66, 77, 88, 99, 100};
+        Scanner scanner = new Scanner(System.in);
         ArrayManager am = new ArrayManager();
-        
-        try
-        {
-            am.remove(5);
-        }
-        catch(NoItemsException nie)
-        {
-            nie.printStackTrace();
-        }
-        
-        am.add(11);
-        am.add(22);
-        am.add(33);
-        am.add(44);
-        am.add(55);
-        am.add(66);
-        am.add(77);
-        am.add(88);
-        am.add(99);
-        am.add(100);
-        
-        am.printArray();
-        
-        //am.addAt(123, 5);
-        //am.printArray();
-        
-        try
-        {
-            am.remove(5);
-        }
-        catch(NoItemsException nie)
-        {
-            nie.printStackTrace();
-        }
-        
-        am.printArray();
-    }
+        int menuOption = 0;
+        int item = 0;
+        int position = 0;
+        while (menuOption != 1) {
+            //display menu
+            System.out.println("============================");
+            System.out.println("1. Manage data with ArrayManager");
+            System.out.println("2. Exit");
+            System.out.println("============================");
+            menuOption = scanner.nextInt();
+            if (menuOption == 1) {
+                Random random = new Random();
+                for (int i = 1; i <= 9; i++) {
+                    am.add(random.nextInt(100) + 1);
+                }
+                while (menuOption != 6) {
+                    System.out.println("============================");
 
+                    System.out.println("1. Add an item");
+                    System.out.println("2. Add an item at position");
+                    System.out.println("3. Remove item");
+                    System.out.println("4. Display number of items");
+                    System.out.println("5. Display all items");
+                    System.out.println("6. Exit");
+                    System.out.println("============================");
+                    menuOption = scanner.nextInt();
+                    switch (menuOption) {
+                        case 1://add
+                            System.out.print("Enter item:");
+                            item = scanner.nextInt();
+                            am.add(item);
+                            break;
+                        case 2://add at
+                            System.out.print("Enter item:");
+                            item = scanner.nextInt();
+                            System.out.print("Enter position:");
+                            position = scanner.nextInt();
+                            try {
+                                am.addAt(item, position);
+                            } catch (OutOfBoundsException e) {
+                                System.out.println(e.getMessage());
+                            }
+                            break;
+                        case 3:
+                            System.out.println("Remove at position: ");
+                            position = scanner.nextInt();
+                            try {
+                                am.remove(position);
+                            } catch (NoItemsException e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                        case 4:
+                            System.out.println("Number of  items is: " + am.getSize());
+                            break;
+                        case 5:
+                            am.printArray();
+                            break;
+                        case 6:
+                            System.out.println("Exiting...");
+                            break;
+
+                    }
+                }
+            } else if (menuOption == 2) {
+                System.out.println("Exiting the application...");
+                break;
+            } else {//return error
+                System.out.println("Incorrect choice. Please choose again");
+            }
+        }
+    }
 }
