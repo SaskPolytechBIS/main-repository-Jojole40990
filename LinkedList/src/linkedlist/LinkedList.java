@@ -6,6 +6,7 @@ package linkedlist;
 
 import java.util.Scanner;
 import java.util.Random;
+
 /**
  *
  * @author PC
@@ -34,10 +35,12 @@ public class LinkedList {
     public int getSize() {
         return size;
     }
+
     //set current to the beginning of the list
     public void start() {
         current = items;
     }
+
     //if there is a next node, change current to be equal to the next node in the list
     public boolean advance() {
         // returns true if current is able to go to the next node
@@ -49,11 +52,11 @@ public class LinkedList {
 
         return result;
     }
+
     //return the data of current
     public Object getCurrent() {
         return current.getData();
     }
-
 
     //create a bew node insert it after current
     public void addAfter(Object nodeData) {
@@ -172,6 +175,12 @@ public class LinkedList {
         return previousNode;
     }
 
+    public void clear() {
+        items = null;   // Remove the reference to the start of the list
+        current = null; // Reset the current node pointer
+        size = 0;       // Reset the size of the list
+    }
+
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
@@ -240,8 +249,8 @@ public class LinkedList {
             }
         }
         /**
-         * // TODO code application logic here LinkedList ll = new LinkedList();
-         * ll.addBefore(11); ll.printList(); ll.printCurrent();
+         * // TODO code application logic here LinkedList ll = new
+         * LinkedList(); ll.addBefore(11); ll.printList(); ll.printCurrent();
          *
          * System.out.println("--- Remove ---");
          *
