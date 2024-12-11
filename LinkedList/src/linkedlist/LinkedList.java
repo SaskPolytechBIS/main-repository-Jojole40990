@@ -53,6 +53,29 @@ public class LinkedList {
         return result;
     }
 
+    public boolean prevouse() {
+        boolean result = false;
+
+        // Only try to find the previous node if 'current' is not at the start and not null.
+        if (current != items && current != null) {
+            ListNode temp = items;
+
+            //in while next until before current
+            while (temp != null && temp.next != current) {
+                temp = temp.next;
+            }
+
+            // If 'temp' is not null and we've exited the loop correctly, then 'temp.next' should be 'current'.
+            // This check prevents from assigning a null to 'current' which would happen if 'temp' is null or the list was corrupted.
+            if (temp != null) {
+                current = temp;
+                result = true; // Update flag to true since we can move to the previous node.
+            }
+        }
+
+        return result; // Return the result which is either true (could move back) or false.
+    }
+
     //return the data of current
     public Object getCurrent() {
         return current.getData();
@@ -194,16 +217,17 @@ public class LinkedList {
         }
 
         int menuOption = 0;
-        while (menuOption != 8) {
+        while (menuOption != 9) {
             System.out.println("============================");
             System.out.println("1. Set current to start");
             System.out.println("2. Advance current");
-            System.out.println("3. Add before current");
-            System.out.println("4. Add after current");
-            System.out.println("5. Delete current");
-            System.out.println("6. Print current");
-            System.out.println("7. Print List");
-            System.out.println("8. Exit LinkedList management");
+            System.out.println("3. Previouse");
+            System.out.println("4. Add before current");
+            System.out.println("5. Add after current");
+            System.out.println("6. Delete current");
+            System.out.println("7. Print current");
+            System.out.println("8. Print List");
+            System.out.println("9. Exit LinkedList management");
             System.out.println("============================");
             menuOption = scanner.nextInt();
 
@@ -220,29 +244,37 @@ public class LinkedList {
                     }
                     break;
                 case 3:
+                    if (ll.prevouse()) {
+                        System.out.println("Move to previouse");
+                    } else {
+                        System.out.println("Cannot previouse. Reached start of list.");
+                    }
+
+                    break;
+                case 4:
                     System.out.print("Enter value to add before current: ");
                     Object dataBefore = scanner.next();
                     ll.addBefore(dataBefore);
                     System.out.println("Added before current.");
                     break;
-                case 4:
+                case 5:
                     System.out.print("Enter value to add after current: ");
                     Object dataAfter = scanner.next();
                     ll.addAfter(dataAfter);
                     System.out.println("Added after current.");
                     break;
-                case 5:
+                case 6:
                     ll.removeCurrent();
                     System.out.println("Current node removed.");
                     break;
-                case 6:
+                case 7:
                     System.out.println("Current node data: " + ll.getCurrent());
                     break;
-                case 7:
+                case 8:
                     ll.printList();
                     break;
-                case 8:
-                    System.out.println("Exiting...");
+                case 9:
+                    System.out.println("Exiting LinkedList management...");
                     break;
                 default:
                     System.out.println("Invalid choice! Please try again.");

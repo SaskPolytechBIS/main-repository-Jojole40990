@@ -12,12 +12,15 @@ public class ListNode {
 
     private Object data;//This could be any type of Data
     public ListNode next;
+    public ListNode previous;
 
     public ListNode() {
     }
 
     public ListNode(Object data) {
         this.data = data;
+        this.next = null;
+        this.previous = null;
     }
 
     public Object getData() {

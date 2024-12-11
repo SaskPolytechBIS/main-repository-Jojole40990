@@ -60,16 +60,17 @@ public class COMP258MainDriver {
 
     private static void manageLinkedList(Scanner scanner, LinkedList ll) {
         int linkedListOption = 0;
-        while (linkedListOption != 8) {
+        while (linkedListOption != 9) {
             System.out.println("============================");
             System.out.println("1. Set current to start");
             System.out.println("2. Advance current");
-            System.out.println("3. Add before current");
-            System.out.println("4. Add after current");
-            System.out.println("5. Delete current");
-            System.out.println("6. Print current");
-            System.out.println("7. Print List");
-            System.out.println("8. Exit LinkedList management");
+            System.out.println("3. Previouse");
+            System.out.println("4. Add before current");
+            System.out.println("5. Add after current");
+            System.out.println("6. Delete current");
+            System.out.println("7. Print current");
+            System.out.println("8. Print List");
+            System.out.println("9. Exit LinkedList management");
             System.out.println("============================");
             linkedListOption = scanner.nextInt();
 
@@ -86,28 +87,36 @@ public class COMP258MainDriver {
                     }
                     break;
                 case 3:
+                    if (ll.prevouse()) {
+                        System.out.println("Move to previouse");
+                    } else {
+                        System.out.println("Cannot previouse. Reached start of list.");
+                    }
+
+                    break;
+                case 4:
                     System.out.print("Enter value to add before current: ");
                     Object dataBefore = scanner.next();
                     ll.addBefore(dataBefore);
                     System.out.println("Added before current.");
                     break;
-                case 4:
+                case 5:
                     System.out.print("Enter value to add after current: ");
                     Object dataAfter = scanner.next();
                     ll.addAfter(dataAfter);
                     System.out.println("Added after current.");
                     break;
-                case 5:
+                case 6:
                     ll.removeCurrent();
                     System.out.println("Current node removed.");
                     break;
-                case 6:
+                case 7:
                     System.out.println("Current node data: " + ll.getCurrent());
                     break;
-                case 7:
+                case 8:
                     ll.printList();
                     break;
-                case 8:
+                case 9:
                     System.out.println("Exiting LinkedList management...");
                     break;
                 default:
