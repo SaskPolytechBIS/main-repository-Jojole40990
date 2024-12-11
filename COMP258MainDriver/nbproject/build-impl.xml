@@ -1076,6 +1076,7 @@ is divided into following sections:
             <param name="transfer.not.archive.disabled" value="true"/>
             <param name="transfer.do.jlink" value="false"/>
         </antcall>
+<<<<<<< HEAD
         <antcall target="-maybe-call-dep">
             <param name="call.built.properties" value="${built-jar.properties}"/>
             <param location="${project.LinkedList}" name="call.subproject"/>
@@ -1085,6 +1086,8 @@ is divided into following sections:
             <param name="transfer.not.archive.disabled" value="true"/>
             <param name="transfer.do.jlink" value="false"/>
         </antcall>
+=======
+>>>>>>> ArrayManager
     </target>
     <target depends="init,-check-automatic-build,-clean-after-automatic-build" name="-verify-automatic-build"/>
     <target depends="init" name="-check-automatic-build">
@@ -1765,6 +1768,7 @@ is divided into following sections:
             <param name="transfer.not.archive.disabled" value="true"/>
             <param name="transfer.do.jlink" value="false"/>
         </antcall>
+<<<<<<< HEAD
         <antcall target="-maybe-call-dep">
             <param name="call.built.properties" value="${built-clean.properties}"/>
             <param location="${project.LinkedList}" name="call.subproject"/>
@@ -1774,6 +1778,8 @@ is divided into following sections:
             <param name="transfer.not.archive.disabled" value="true"/>
             <param name="transfer.do.jlink" value="false"/>
         </antcall>
+=======
+>>>>>>> ArrayManager
     </target>
     <target depends="init" name="-do-clean">
         <delete dir="${build.dir}"/>

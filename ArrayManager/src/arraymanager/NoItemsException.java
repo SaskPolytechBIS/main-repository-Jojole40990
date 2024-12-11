@@ -6,7 +6,7 @@ package arraymanager;
 
 /**
  *
- * @author joshu
+ * @author PC
  */
 public class NoItemsException extends Exception{
     
