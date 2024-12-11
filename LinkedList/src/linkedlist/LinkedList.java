@@ -4,6 +4,8 @@
  */
 package linkedlist;
 
+import java.util.Scanner;
+import java.util.Random;
 /**
  *
  * @author PC
@@ -32,27 +34,6 @@ public class LinkedList {
     public int getSize() {
         return size;
     }
-
-    /**
-    public void add(Object nodeData) {
-        //Create new node
-        ListNode newNode = new ListNode(nodeData);
-        //if the list is empty
-        if (size == 0) {
-            //make the new node the first item in the list
-            items = newNode;
-            current = newNode;
-            size = 1;
-        } //if there is already data
-        else {
-            //add the new node after current
-            current.next = newNode;//add next
-            current = newNode;//moving to new node
-            size++;
-        }
-    }
-    */
-    
     //set current to the beginning of the list
     public void start() {
         current = items;
@@ -72,8 +53,8 @@ public class LinkedList {
     public Object getCurrent() {
         return current.getData();
     }
-    
-    
+
+
     //create a bew node insert it after current
     public void addAfter(Object nodeData) {
         ListNode newNode = new ListNode(nodeData);
@@ -125,6 +106,7 @@ public class LinkedList {
             size++;
         }
     }
+
     //print all items in the list
     public void printList() {
         if (size == 0) {
@@ -140,12 +122,10 @@ public class LinkedList {
         }
     }
 
-    
     public void printCurrent() {
         System.out.println("current: " + current.getData());
     }
-    
-    
+
     //remove current node
     public void removeCurrent() {
         if (size == 0) {
@@ -172,8 +152,7 @@ public class LinkedList {
         }
 
     }
-    
-    
+
     //find previous
     private ListNode findPreviousNode() {
         ListNode previousNode = null; //stores the value of the node before current
@@ -194,57 +173,107 @@ public class LinkedList {
     }
 
     public static void main(String[] args) {
-        // TODO code application logic here
+
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
         LinkedList ll = new LinkedList();
-        ll.addBefore(11);
-        ll.printList();
-        ll.printCurrent();
 
-        System.out.println("--- Remove ---");
+        // Populate with 9 random integers
+        System.out.println("Populating LinkedList with 9 random integers...");
+        for (int i = 1; i <= 9; i++) {
+            ll.addAfter(random.nextInt(100) + 1);
+        }
 
-        ll.removeCurrent();
-        ll.printList();
-        ll.removeCurrent();
+        int menuOption = 0;
+        while (menuOption != 8) {
+            System.out.println("============================");
+            System.out.println("1. Set current to start");
+            System.out.println("2. Advance current");
+            System.out.println("3. Add before current");
+            System.out.println("4. Add after current");
+            System.out.println("5. Delete current");
+            System.out.println("6. Print current");
+            System.out.println("7. Print List");
+            System.out.println("8. Exit LinkedList management");
+            System.out.println("============================");
+            menuOption = scanner.nextInt();
 
-        System.out.println("--Reborn---");
-        ll.addAfter("ll");
-        ll.printList();
-        /*
-        System.out.println("--- Adding items to list ---");
-
-        ll.add(11);
-        ll.add(22);
-        ll.add(33);
-        ll.add(44);
-        ll.add(55);
-
-        System.out.println("--- Printing List ---");
-        ll.printList();
-
-        System.out.println("--- Set current to 33 ---");
-        ll.start();//11
-        ll.advance();//22
-        ll.advance();//33
-        System.out.println("the balue is:" + ll.getCurrent());
-
-        System.out.println("--- Add after ---");
-        ll.addAfter("newNode");
-        ll.addAfter("newNode2");
-        ll.addAfter("newNode3");
-        ll.printList();
-        System.out.println("The amount of items in our list is: " + ll.getSize());
-        
-        
-        System.out.println("call before----");
-        
-        System.out.println("current "+ll.getCurrent());
-        ll.addBefore("newNode!!");
-
-        ll.printList();
-        
-        ll.printCurrent();
+            switch (menuOption) {
+                case 1:
+                    ll.start();
+                    System.out.println("Current set to start.");
+                    break;
+                case 2:
+                    if (ll.advance()) {
+                        System.out.println("Current advanced to next node.");
+                    } else {
+                        System.out.println("Cannot advance. Reached end of list.");
+                    }
+                    break;
+                case 3:
+                    System.out.print("Enter value to add before current: ");
+                    Object dataBefore = scanner.next();
+                    ll.addBefore(dataBefore);
+                    System.out.println("Added before current.");
+                    break;
+                case 4:
+                    System.out.print("Enter value to add after current: ");
+                    Object dataAfter = scanner.next();
+                    ll.addAfter(dataAfter);
+                    System.out.println("Added after current.");
+                    break;
+                case 5:
+                    ll.removeCurrent();
+                    System.out.println("Current node removed.");
+                    break;
+                case 6:
+                    System.out.println("Current node data: " + ll.getCurrent());
+                    break;
+                case 7:
+                    ll.printList();
+                    break;
+                case 8:
+                    System.out.println("Exiting...");
+                    break;
+                default:
+                    System.out.println("Invalid choice! Please try again.");
+            }
+        }
+        /**
+         * // TODO code application logic here LinkedList ll = new LinkedList();
+         * ll.addBefore(11); ll.printList(); ll.printCurrent();
+         *
+         * System.out.println("--- Remove ---");
+         *
+         * ll.removeCurrent(); ll.printList(); ll.removeCurrent();
+         *
+         * System.out.println("--Reborn---"); ll.addAfter("ll"); ll.printList();
+         * /* System.out.println("--- Adding items to list ---");
+         *
+         * ll.add(11); ll.add(22); ll.add(33); ll.add(44); ll.add(55);
+         *
+         * System.out.println("--- Printing List ---"); ll.printList();
+         *
+         * System.out.println("--- Set current to 33 ---"); ll.start();//11
+         * ll.advance();//22 ll.advance();//33 System.out.println("the balue
+         * is:" + ll.getCurrent());
+         *
+         * System.out.println("--- Add after ---"); ll.addAfter("newNode");
+         * ll.addAfter("newNode2"); ll.addAfter("newNode3"); ll.printList();
+         * System.out.println("The amount of items in our list is: " +
+         * ll.getSize());
+         *
+         *
+         * System.out.println("call before----");
+         *
+         * System.out.println("current "+ll.getCurrent());
+         * ll.addBefore("newNode!!");
+         *
+         * ll.printList();
+         *
+         * ll.printCurrent();
          */
- /*
+        /*
         System.out.println("--- Using Current ---");
         ll.start();
 
@@ -255,5 +284,6 @@ public class LinkedList {
         } while (ll.advance() == true); // while there is a next item to go to keep looping
     
          */
+
     }
 }

@@ -167,6 +167,7 @@ public class ArrayManager {
             menuOption = scanner.nextInt();
             if (menuOption == 1) {
                 Random random = new Random();
+                System.out.println("Populating Array with 9 random integers...");
                 for (int i = 1; i <= 9; i++) {
                     am.add(random.nextInt(100) + 1);
                 }

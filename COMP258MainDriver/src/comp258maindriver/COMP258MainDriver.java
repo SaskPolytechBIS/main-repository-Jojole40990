@@ -22,19 +22,23 @@ public class COMP258MainDriver {
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
         int menuOption = 0;
-        
+
         while (menuOption != 3) {
             System.out.println("============================");
             System.out.println("1. Manage data with ArrayManager");
             System.out.println("2. Manage data with LinkList");
-            
+
             System.out.println("3. Exit");
             System.out.println("============================");
             menuOption = scanner.nextInt();
             switch (menuOption) {
                 case 1:
+                    System.out.println("Launching ArrayManager...");
+                    ArrayManager.main(new String[]{});
                     break;
                 case 2:
+                    System.out.println("Launching LinkedList...");
+                    LinkedList.main(new String[]{});
                     break;
                 case 3:
                     break;
