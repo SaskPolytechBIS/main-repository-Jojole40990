@@ -9,7 +9,8 @@ package linkedlist;
  * @author PC
  */
 public class ListNode {
-  private Object data;
+
+    private Object data;//This could be any type of Data
     public ListNode next;
 
     public ListNode() {
@@ -22,9 +23,10 @@ public class ListNode {
     public Object getData() {
         return data;
     }
-
-    public void setData(Object data) {
+    /**    
+        public void setData(Object data) {
         this.data = data;
     }
-    
+    */
+
 }

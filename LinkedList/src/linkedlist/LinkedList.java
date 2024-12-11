@@ -15,7 +15,7 @@ public class LinkedList {
      */
     private ListNode items; //this contains the first node in the list
     private ListNode current; //for now, this will always be the last item in the list
-    private int size;
+    private int size;//the number of nodes in the list
 
     public LinkedList() {
 
@@ -33,6 +33,7 @@ public class LinkedList {
         return size;
     }
 
+    /**
     public void add(Object nodeData) {
         //Create new node
         ListNode newNode = new ListNode(nodeData);
@@ -50,25 +51,12 @@ public class LinkedList {
             size++;
         }
     }
-
-    public void printList() {
-        if (size == 0) {
-            System.out.println("The List is empty");
-        } else {
-            ListNode parser = items;
-
-            do {
-                System.out.println("Node Data: " + parser.getData());
-                parser = parser.next;
-
-            } while (parser != null);
-        }
-    }
-
+    */
+    
+    //set current to the beginning of the list
     public void start() {
         current = items;
     }
-
     //if there is a next node, change current to be equal to the next node in the list
     public boolean advance() {
         // returns true if current is able to go to the next node
@@ -80,11 +68,12 @@ public class LinkedList {
 
         return result;
     }
-
+    //return the data of current
     public Object getCurrent() {
         return current.getData();
     }
-
+    
+    
     //create a bew node insert it after current
     public void addAfter(Object nodeData) {
         ListNode newNode = new ListNode(nodeData);
@@ -136,11 +125,27 @@ public class LinkedList {
             size++;
         }
     }
+    //print all items in the list
+    public void printList() {
+        if (size == 0) {
+            System.out.println("The List is empty");
+        } else {
+            ListNode parser = items;
 
+            do {
+                System.out.println("Node Data: " + parser.getData());
+                parser = parser.next;
+
+            } while (parser != null);
+        }
+    }
+
+    
     public void printCurrent() {
         System.out.println("current: " + current.getData());
     }
-
+    
+    
     //remove current node
     public void removeCurrent() {
         if (size == 0) {
@@ -167,7 +172,8 @@ public class LinkedList {
         }
 
     }
-
+    
+    
     //find previous
     private ListNode findPreviousNode() {
         ListNode previousNode = null; //stores the value of the node before current
