@@ -11,35 +11,35 @@ import java.util.Random;
  *
  * @author PC
  */
-public class ArrayManager {
+public class ArrayManager<T extends Comparable>{
 
 
-    private int[] items;//the array that will be storing data
+    private T[] items;//the array that will be storing data
     private int size; // the number of item that will hold in array
 
     //constructors
     //set the array to size 10 by default
     public ArrayManager() {
-        items = new int[10];
+        items = (T[]) new Comparable[10];
         size = 0;
     }
 
     //set the array to the lenght provided
     public ArrayManager(int lenght) {
-        items = new int[lenght];
+        items = (T[]) new Comparable[lenght];
         size = 0;
     }
 
     //take in an array and store its data in out items arrays
     //assume that arrayToManage is a full array
-    public ArrayManager(int[] arrayToManage) {
+    public ArrayManager(T[] arrayToManage) {
         items = arrayToManage;
         size = arrayToManage.length;
 
     }
 
     //getter
-    public int[] getItems() {
+    public T[] getItems() {
         return items;
     }
 
@@ -78,7 +78,7 @@ public class ArrayManager {
     //replaces the data array with a new, larger array that has all the same information in it
     private void resizeArray() {
         //create a larger array
-        int[] newArray = new int[items.length + 10];
+        T[] newArray = (T[])new Comparable[items.length + 10];
         //copy all data
         for (int i = 0; i < size; i++) {
             newArray[i] = items[i];
@@ -88,7 +88,7 @@ public class ArrayManager {
     }
 
     //add an item to the end of array
-    public void add(int newItem) {
+    public void add(T newItem) {
 
         //check the room in array(size == array length)
         //if no more room >> resize the array
@@ -123,7 +123,7 @@ public class ArrayManager {
     }
 
     //adds an item at the specified index in the array
-    public void addAt(int newItem, int index) throws OutOfBoundsException {
+    public void addAt(T newItem, int index) throws OutOfBoundsException {
         if (index < 0 || index > size) {
             throw new OutOfBoundsException("Index out of bounds: " + index);
         }

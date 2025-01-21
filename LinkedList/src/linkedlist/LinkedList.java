@@ -273,51 +273,6 @@ public class LinkedList {
                     System.out.println("Invalid choice! Please try again.");
             }
         }
-        /**
-         * // TODO code application logic here LinkedList ll = new LinkedList();
-         * ll.addBefore(11); ll.printList(); ll.printCurrent();
-         *
-         * System.out.println("--- Remove ---");
-         *
-         * ll.removeCurrent(); ll.printList(); ll.removeCurrent();
-         *
-         * System.out.println("--Reborn---"); ll.addAfter("ll"); ll.printList();
-         * /* System.out.println("--- Adding items to list ---");
-         *
-         * ll.add(11); ll.add(22); ll.add(33); ll.add(44); ll.add(55);
-         *
-         * System.out.println("--- Printing List ---"); ll.printList();
-         *
-         * System.out.println("--- Set current to 33 ---"); ll.start();//11
-         * ll.advance();//22 ll.advance();//33 System.out.println("the balue
-         * is:" + ll.getCurrent());
-         *
-         * System.out.println("--- Add after ---"); ll.addAfter("newNode");
-         * ll.addAfter("newNode2"); ll.addAfter("newNode3"); ll.printList();
-         * System.out.println("The amount of items in our list is: " +
-         * ll.getSize());
-         *
-         *
-         * System.out.println("call before----");
-         *
-         * System.out.println("current "+ll.getCurrent());
-         * ll.addBefore("newNode!!");
-         *
-         * ll.printList();
-         *
-         * ll.printCurrent();
-         */
-        /*
-        System.out.println("--- Using Current ---");
-        ll.start();
-
-        do {
-            //print the data in current
-            System.out.println("The data in current is: " + ll.getCurrent());
-
-        } while (ll.advance() == true); // while there is a next item to go to keep looping
-    
-         */
 
     }
 }
