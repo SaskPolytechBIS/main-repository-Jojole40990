@@ -8,16 +8,16 @@ package linkedlist;
  *
  * @author PC
  */
-public class ListNode {
+public class ListNode <T extends Comparable>{
 
-    private Object data;//This could be any type of Data
-    public ListNode next;
-    public ListNode previous;
+    private T data;//This could be any type of Data
+    public ListNode<T> next;
+    public ListNode<T> previous;
 
     public ListNode() {
     }
 
-    public ListNode(Object data) {
+    public ListNode(T data) {
         this.data = data;
         this.next = null;
         this.previous = null;

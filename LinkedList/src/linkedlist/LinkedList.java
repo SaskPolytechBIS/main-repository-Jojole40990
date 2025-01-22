@@ -10,13 +10,13 @@ import java.util.Random;
  *
  * @author PC
  */
-public class LinkedList {
+public class LinkedList<T extends Comparable>{
 
     /**
      * @param args the command line arguments
      */
-    private ListNode items; //this contains the first node in the list
-    private ListNode current; //for now, this will always be the last item in the list
+    private ListNode<T> items; //this contains the first node in the list
+    private ListNode<T> current; //for now, this will always be the last item in the list
     private int size;//the number of nodes in the list
 
     public LinkedList() {
@@ -81,7 +81,7 @@ public class LinkedList {
 
 
     //create a bew node insert it after current
-    public void addAfter(Object nodeData) {
+    public void addAfter(T nodeData) {
         ListNode newNode = new ListNode(nodeData);
         ListNode nextNode;
         //if there are no items in the list
@@ -105,7 +105,7 @@ public class LinkedList {
     }
 
     //creat a new node and insert it between current and previouse
-    public void addBefore(Object nodeData) {
+    public void addBefore(T nodeData) {
         ListNode newNode = new ListNode(nodeData);
 
         //if there is no item
@@ -246,8 +246,8 @@ public class LinkedList {
                     break;
                 case 4:
                     System.out.print("Enter value to add before current: ");
-                    Object dataBefore = scanner.next();
-                    ll.addBefore(dataBefore);
+                    T dataBefore = (T) scanner.next();
+                    T dataBefore = (T) Integer.valueOf(scanner.next());
                     System.out.println("Added before current.");
                     break;
                 case 5:
