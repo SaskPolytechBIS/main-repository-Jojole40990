@@ -6,11 +6,13 @@ package linkedlist;
 
 import java.util.Scanner;
 import java.util.Random;
+import widget.Widget;
+
 /**
  *
  * @author PC
  */
-public class LinkedList<T extends Comparable>{
+public class LinkedList<T extends Comparable> {
 
     /**
      * @param args the command line arguments
@@ -25,7 +27,7 @@ public class LinkedList<T extends Comparable>{
 
     //create the first node
     //Assump Items is not pointing to anything
-    public LinkedList(ListNode items) {
+    public LinkedList(ListNode<T> items) {
         this.items = items;
         current = items;
         size = 1;
@@ -34,10 +36,12 @@ public class LinkedList<T extends Comparable>{
     public int getSize() {
         return size;
     }
+
     //set current to the beginning of the list
     public void start() {
         current = items;
     }
+
     //if there is a next node, change current to be equal to the next node in the list
     public boolean advance() {
         // returns true if current is able to go to the next node
@@ -73,17 +77,19 @@ public class LinkedList<T extends Comparable>{
         return result; // Return the result which is either true (could move back) or false.
     }
 
-
     //return the data of current
-    public Object getCurrent() {
-        return current.getData();
+    public T getCurrent() {
+        if (current != null) {
+            return current.data;
+        }else{
+            return null;
+        }
     }
-
 
     //create a bew node insert it after current
     public void addAfter(T nodeData) {
-        ListNode newNode = new ListNode(nodeData);
-        ListNode nextNode;
+        ListNode<T> newNode = new ListNode(nodeData);
+        ListNode<T> nextNode;
         //if there are no items in the list
         if (size == 0) {
             items = newNode;
@@ -140,7 +146,7 @@ public class LinkedList<T extends Comparable>{
             ListNode parser = items;
 
             do {
-                System.out.println("Node Data: " + parser.getData());
+                System.out.println("Node Data: " + parser.data);
                 parser = parser.next;
 
             } while (parser != null);
@@ -148,7 +154,7 @@ public class LinkedList<T extends Comparable>{
     }
 
     public void printCurrent() {
-        System.out.println("current: " + current.getData());
+        System.out.println("current: " + current.data);
     }
 
     //remove current node
@@ -197,11 +203,51 @@ public class LinkedList<T extends Comparable>{
         return previousNode;
     }
 
+    //find max in linkedlist
+    public T FindMax() {
+        if (items == null) {
+            return null;
+        }
+        T max = items.data;
+        ListNode<T> temp = items.next;
+        while (temp != null) {
+            if (temp.data.compareTo(max) > 0) {
+                max = temp.data;
+            }
+            temp = temp.next;
+        }
+        return max;
+    }
+
+    //find list in linkedlist 
+    public T Find(T target) {
+        ListNode<T> temp = items;
+        while (temp != null) {
+            if (temp.data.equals(target)) {
+                return temp.data;
+            }
+            temp = temp.next;
+        }
+        return null;
+    }
+
+    // Inner class to define the nodes of the LinkedList.
+    private static class ListNode<T> {
+
+        T data;
+        ListNode<T> next;
+
+        ListNode(T data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
-        LinkedList ll = new LinkedList();
+        LinkedList<Integer> ll = new LinkedList<>();
 
         // Populate with 9 random integers
         System.out.println("Populating LinkedList with 9 random integers...");
@@ -223,7 +269,6 @@ public class LinkedList<T extends Comparable>{
             System.out.println("9. Exit LinkedList management");
             System.out.println("============================");
             menuOption = scanner.nextInt();
-
             switch (menuOption) {
                 case 1:
                     ll.start();
@@ -246,13 +291,13 @@ public class LinkedList<T extends Comparable>{
                     break;
                 case 4:
                     System.out.print("Enter value to add before current: ");
-                    T dataBefore = (T) scanner.next();
-                    T dataBefore = (T) Integer.valueOf(scanner.next());
+                    int dataBefore = scanner.nextInt();
+                    ll.addBefore(dataBefore);
                     System.out.println("Added before current.");
                     break;
                 case 5:
                     System.out.print("Enter value to add after current: ");
-                    Object dataAfter = scanner.next();
+                    int dataAfter = scanner.nextInt();
                     ll.addAfter(dataAfter);
                     System.out.println("Added after current.");
                     break;
@@ -273,6 +318,5 @@ public class LinkedList<T extends Comparable>{
                     System.out.println("Invalid choice! Please try again.");
             }
         }
-
     }
 }

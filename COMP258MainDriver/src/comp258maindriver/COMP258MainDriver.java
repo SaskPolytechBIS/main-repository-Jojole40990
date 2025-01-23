@@ -5,7 +5,10 @@
 package comp258maindriver;
 
 import arraymanager.ArrayManager;
+import arraymanager.NoItemsException;
+import arraymanager.OutOfBoundsException;
 import linkedlist.LinkedList;
+import widget.Widget;
 import java.util.Scanner;
 import java.util.Random;
 
@@ -13,7 +16,7 @@ import java.util.Random;
  *
  * @author PC
  */
-public class COMP258MainDriver {
+public class COMP258MainDriver<T extends Comparable> {
 
     /**
      * @param args the command line arguments
@@ -21,10 +24,25 @@ public class COMP258MainDriver {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
-
-        LinkedList ll = new LinkedList();
+        ArrayManager<Widget> arrayManager = new ArrayManager<>();
+        LinkedList<Widget> linkedList = new LinkedList<>();
+        //LinkedList ll = new LinkedList();
         int menuOption = 0;
 
+        // Create Widget objects
+        Widget[] widgets = new Widget[]{
+            new Widget(1001, "Gadget", 546),
+            new Widget(1005, "Thingamabob", 20),
+            new Widget(1004, "Whatsit", 1354),
+            new Widget(1002, "Gizmo", 486),
+            new Widget(1003, "Whozit", 1465)
+        };
+
+        // Populate ArrayManager and LinkedList with these widgets
+        for (Widget widget : widgets) {
+            arrayManager.add(widget);
+            linkedList.addAfter(widget); // Assuming a method to add at the end or similar
+        }
         while (menuOption != 3) {
             System.out.println("============================");
             System.out.println("1. Manage data with ArrayManager");
@@ -35,19 +53,114 @@ public class COMP258MainDriver {
 
             switch (menuOption) {
                 case 1:
-                    // Assuming ArrayManager has a main method to handle its operations
-                    ArrayManager.main(new String[]{});
+                    //Array Manager
+                    //ArrayManager am = new ArrayManager();
+                    menuOption = 0;
+                    int id = 0;
+                    String name;
+                    int amount;
+                    int position = 0;
+                    while (menuOption != 1) {
+                        //display menu
+                        System.out.println("============================");
+                        System.out.println("1. Manage data with ArrayManager");
+                        System.out.println("2. Exit");
+                        System.out.println("============================");
+                        menuOption = scanner.nextInt();
+                        if (menuOption == 1) {
+                            while (menuOption != 8) {
+                                System.out.println("============================");
+                                System.out.println("1. Add an item");
+                                System.out.println("2. Add an item at position");
+                                System.out.println("3. Remove item");
+                                System.out.println("4. Display number of items");
+                                System.out.println("5. Display all items");
+                                System.out.println("6. Print newest Widget");
+                                System.out.println("7. Print Widget info by Id");
+                                System.out.println("8. Exit");
+                                System.out.println("============================");
+                                menuOption = scanner.nextInt();
+                                switch (menuOption) {
+                                    case 1://add
+                                        System.out.print("Enter ID:");
+                                        id = scanner.nextInt();
+                                        System.out.print("Enter Name:");
+                                        name = scanner.next();
+                                        System.out.print("Enter Amount:");
+                                        amount = scanner.nextInt();
+
+                                        Widget newWidget = new Widget(id, name, amount);
+                                        arrayManager.add(newWidget);
+                                        break;
+                                    case 2://add at
+                                        System.out.print("Enter ID:");
+                                        id = scanner.nextInt();
+                                        System.out.print("Enter Name:");
+                                        name = scanner.next();
+                                        System.out.print("Enter Amount:");
+                                        amount = scanner.nextInt();
+                                        System.out.print("Enter position:");
+                                        position = scanner.nextInt();
+
+                                        Widget newWidgetAtPosition = new Widget(id, name, amount);
+                                        try {
+                                            arrayManager.addAt(newWidgetAtPosition, position);
+                                        } catch (OutOfBoundsException e) {
+                                            System.out.println(e.getMessage());
+                                        }
+                                        break;
+                                    case 3:
+                                        System.out.println("Remove at position: ");
+                                        position = scanner.nextInt();
+                                        try {
+                                            arrayManager.remove(position);
+                                        } catch (NoItemsException e) {
+                                            e.printStackTrace();
+                                        }
+                                        break;
+                                    case 4:
+                                        System.out.println("Number of  items is: " + arrayManager.getSize());
+                                        break;
+                                    case 5:
+                                        arrayManager.printArray();
+                                        break;
+                                    case 6:
+                                        Comparable max = arrayManager.FindMax();
+                                        if (max != null) {
+                                            System.out.println("Maximum item: " + max);
+                                        } else {
+                                            System.out.println("No items to compare.");
+                                        }
+                                        break;
+                                    case 7:
+                                        System.out.print("Enter item ID to find:");
+                                        id = scanner.nextInt();
+                                        Widget widgetToFind = new Widget(id, "", 0); // Amount is irrelevant for comparison
+                                        Widget foundWidget = arrayManager.Find(widgetToFind);
+                                        if (foundWidget != null) {
+                                            System.out.println("Found item: " + foundWidget);
+                                        } else {
+                                            System.out.println("Item not found.");
+                                        }
+                                        break;
+                                    case 8:
+                                        System.out.println("Exiting...");
+                                        break;
+
+                                }
+                            }
+                        } else if (menuOption == 2) {
+                            System.out.println("Exiting the application...");
+                            break;
+                        } else {//return error
+                            System.out.println("Incorrect choice. Please choose again");
+                        }
+                    }
                     break;
                 case 2:
                     // LinkedList management is handled in a separate method
 
-                    // Populate with 9 random integers
-                    System.out.println("Populating LinkedList with 9 random integers...");
-                    for (int i = 1; i <= 9; i++) {
-                        ll.addAfter(random.nextInt(100) + 1);
-                    }
-
-                    while (menuOption != 8) {
+                    while (menuOption != 10) {
                         System.out.println("============================");
                         System.out.println("1. Set current to start");
                         System.out.println("2. Advance current");
@@ -56,45 +169,76 @@ public class COMP258MainDriver {
                         System.out.println("5. Delete current");
                         System.out.println("6. Print current");
                         System.out.println("7. Print List");
-                        System.out.println("8. Exit LinkedList management");
+                        System.out.println("8. Print newest Widget");
+                        System.out.println("9. Print Widget info by Id");
+                        System.out.println("10. Exit LinkedList management");
                         System.out.println("============================");
                         menuOption = scanner.nextInt();
 
                         switch (menuOption) {
                             case 1:
-                                ll.start();
+                                linkedList.start();
                                 System.out.println("Current set to start.");
                                 break;
                             case 2:
-                                if (ll.advance()) {
+                                if (linkedList.advance()) {
                                     System.out.println("Current advanced to next node.");
                                 } else {
                                     System.out.println("Cannot advance. Reached end of list.");
                                 }
                                 break;
                             case 3:
-                                System.out.print("Enter value to add before current: ");
-                                Object dataBefore = scanner.next();
-                                ll.addBefore(dataBefore);
+                                System.out.print("Enter Widget ID: ");
+                                int idBefore = scanner.nextInt();  // Read the Widget ID
+                                System.out.print("Enter Widget Name: ");
+                                String nameBefore = scanner.next();  // Read the Widget Name
+                                System.out.print("Enter Widget Amount: ");
+                                int amountBefore = scanner.nextInt();  // Read the Widget Amount
+                                Widget dataBefore = new Widget(idBefore, nameBefore, amountBefore);
+                                linkedList.addBefore(dataBefore);
                                 System.out.println("Added before current.");
                                 break;
                             case 4:
-                                System.out.print("Enter value to add after current: ");
-                                Object dataAfter = scanner.next();
-                                ll.addAfter(dataAfter);
+                                System.out.print("Enter Widget ID: ");
+                                int idAfter = scanner.nextInt();  // Read the Widget ID
+                                System.out.print("Enter Widget Name: ");
+                                String nameAfter = scanner.next();  // Read the Widget Name
+                                System.out.print("Enter Widget Amount: ");
+                                int amountAfter = scanner.nextInt();  // Read the Widget Amount
+                                Widget dataAfter = new Widget(idAfter, nameAfter, amountAfter);
+                                linkedList.addAfter(dataAfter);
                                 System.out.println("Added after current.");
                                 break;
                             case 5:
-                                ll.removeCurrent();
+                                linkedList.removeCurrent();
                                 System.out.println("Current node removed.");
                                 break;
                             case 6:
-                                System.out.println("Current node data: " + ll.getCurrent());
+                                System.out.println("Current node data: " + linkedList.getCurrent());
                                 break;
                             case 7:
-                                ll.printList();
+                                linkedList.printList();
                                 break;
                             case 8:
+                                Widget maxWidget = linkedList.FindMax();
+                                if (maxWidget != null) {
+                                    System.out.println("Maximum item: " + maxWidget);
+                                } else {
+                                    System.out.println("No items to compare.");
+                                }
+                                break;
+                            case 9:
+                                System.out.print("Enter item ID to find:");
+                                id = scanner.nextInt();
+                                Widget widgetToFind = new Widget(id, "", 0); // Amount is irrelevant for comparison
+                                Widget foundWidget = linkedList.Find(widgetToFind);
+                                if (foundWidget != null) {
+                                    System.out.println("Found item: " + foundWidget);
+                                } else {
+                                    System.out.println("Item not found.");
+                                }
+                                break;
+                            case 10:
                                 System.out.println("Exiting...");
                                 break;
                             default:
@@ -112,51 +256,4 @@ public class COMP258MainDriver {
         scanner.close();
     }
 
-    private static void manageLinkedList(Scanner scanner, LinkedList ll) {
-        int linkedListOption = 0;
-        while (linkedListOption != 9) {
-            System.out.println("============================");
-            System.out.println("1. Set current to start");
-            System.out.println("2. Advance current");
-            System.out.println("3. Previouse");
-            System.out.println("4. Add before current");
-            System.out.println("5. Add after current");
-            System.out.println("6. Delete current");
-            System.out.println("7. Print current");
-            System.out.println("8. Print List");
-            System.out.println("9. Exit LinkedList management");
-            System.out.println("============================");
-            linkedListOption = scanner.nextInt();
-        }
-    }
 }
-/**
- * int menuOption = 0; >>>>>>> parent of 4f1e2af (commit)
- *
- * while (menuOption != 3) { System.out.println("============================");
- * System.out.println("1. Manage data with ArrayManager");
- * System.out.println("2. Manage data with LinkList");
- *
- * System.out.println("3. Exit");
- * System.out.println("============================"); menuOption =
- * scanner.nextInt(); switch (menuOption) { case 1:
- * System.out.println("Launching ArrayManager..."); ArrayManager.main(new
- * String[]{}); break; case 2: System.out.println("Launching LinkedList...");
- * LinkedList.main(new String[]{}); break; case 3: if (ll.prevouse()) {
- * System.out.println("Move to previouse"); } else { System.out.println("Cannot
- * previouse. Reached start of list."); }
- *
- * break; case 4: System.out.print("Enter value to add before current: ");
- * Object dataBefore = scanner.next(); ll.addBefore(dataBefore);
- * System.out.println("Added before current."); break; case 5:
- * System.out.print("Enter value to add after current: "); Object dataAfter =
- * scanner.next(); ll.addAfter(dataAfter); System.out.println("Added after
- * current."); break; case 6: ll.removeCurrent(); System.out.println("Current
- * node removed."); break; case 7: System.out.println("Current node data: " +
- * ll.getCurrent()); break; case 8: ll.printList(); break; case 9:
- * System.out.println("Exiting LinkedList management..."); ======= >>>>>>>
- * parent of 4f1e2af (commit) break; default: System.out.println("Incorrect
- * choice. Please choose again"); } } }
- *
- * }
- */

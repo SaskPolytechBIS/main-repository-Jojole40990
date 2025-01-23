@@ -6,40 +6,40 @@ package arraymanager;
 
 import java.util.Scanner;
 import java.util.Random;
+import widget.Widget;
 
 /**
  *
  * @author PC
  */
-public class ArrayManager<T extends Comparable>{
+public class ArrayManager<T extends Comparable> {
 
-
-    private T[] items;//the array that will be storing data
+    private Comparable[] items;//the array that will be storing data
     private int size; // the number of item that will hold in array
 
     //constructors
     //set the array to size 10 by default
     public ArrayManager() {
-        items = (T[]) new Comparable[10];
+        items = (Comparable[]) new Comparable[10];
         size = 0;
     }
 
     //set the array to the lenght provided
     public ArrayManager(int lenght) {
-        items = (T[]) new Comparable[lenght];
+        items = (Comparable[]) new Comparable[lenght];
         size = 0;
     }
 
     //take in an array and store its data in out items arrays
     //assume that arrayToManage is a full array
-    public ArrayManager(T[] arrayToManage) {
+    public ArrayManager(Comparable[] arrayToManage) {
         items = arrayToManage;
         size = arrayToManage.length;
 
     }
 
     //getter
-    public T[] getItems() {
+    public Comparable[] getItems() {
         return items;
     }
 
@@ -64,12 +64,16 @@ public class ArrayManager<T extends Comparable>{
 
         System.out.println("Print out all visible items");
         for (int i = 0; i < size; i++) {
-            System.out.printf("items[%d]: %d\n", i, items[i]);
+            System.out.println(items[i].toString());  // Correctly print using toString()
         }
 
         System.out.println("Print out true contain of the array");
         for (int i = 0; i < items.length; i++) {
-            System.out.printf("items[%d]: %d\n", i, items[i]);
+            if (items[i] != null) {
+                System.out.println(items[i].toString());  // Ensure you check for null to avoid NullPointerException
+            } else {
+                System.out.println("null");
+            }
         }
         System.out.println("========================================");
 
@@ -78,7 +82,7 @@ public class ArrayManager<T extends Comparable>{
     //replaces the data array with a new, larger array that has all the same information in it
     private void resizeArray() {
         //create a larger array
-        T[] newArray = (T[])new Comparable[items.length + 10];
+        Comparable[] newArray = (Comparable[]) new Comparable[items.length + 10];
         //copy all data
         for (int i = 0; i < size; i++) {
             newArray[i] = items[i];
@@ -88,7 +92,7 @@ public class ArrayManager<T extends Comparable>{
     }
 
     //add an item to the end of array
-    public void add(T newItem) {
+    public void add(Comparable newItem) {
 
         //check the room in array(size == array length)
         //if no more room >> resize the array
@@ -123,7 +127,7 @@ public class ArrayManager<T extends Comparable>{
     }
 
     //adds an item at the specified index in the array
-    public void addAt(T newItem, int index) throws OutOfBoundsException {
+    public void addAt(Comparable newItem, int index) throws OutOfBoundsException {
         if (index < 0 || index > size) {
             throw new OutOfBoundsException("Index out of bounds: " + index);
         }
@@ -156,7 +160,7 @@ public class ArrayManager<T extends Comparable>{
         Scanner scanner = new Scanner(System.in);
         ArrayManager am = new ArrayManager();
         int menuOption = 0;
-        int item = 0;
+        Comparable item = 0;
         int position = 0;
         while (menuOption != 1) {
             //display menu
@@ -171,15 +175,16 @@ public class ArrayManager<T extends Comparable>{
                 for (int i = 1; i <= 9; i++) {
                     am.add(random.nextInt(100) + 1);
                 }
-                while (menuOption != 6) {
+                while (menuOption != 8) {
                     System.out.println("============================");
-
                     System.out.println("1. Add an item");
                     System.out.println("2. Add an item at position");
                     System.out.println("3. Remove item");
                     System.out.println("4. Display number of items");
                     System.out.println("5. Display all items");
-                    System.out.println("6. Exit");
+                    System.out.println("6. Find and display the maximum item");
+                    System.out.println("7. Find and display an item by ID");
+                    System.out.println("8. Exit");
                     System.out.println("============================");
                     menuOption = scanner.nextInt();
                     switch (menuOption) {
@@ -214,7 +219,26 @@ public class ArrayManager<T extends Comparable>{
                         case 5:
                             am.printArray();
                             break;
-                        case 6:
+                        case 6: // Find and display the maximum item
+                            Comparable max = (Comparable) am.FindMax();
+                            if (max != null) {
+                                System.out.println("Maximum item: " + max);
+                            } else {
+                                System.out.println("No items to compare.");
+                            }
+                            break;
+                        case 7: // Find and display an item by ID
+                            System.out.print("Enter item ID to find:");
+                            int id = scanner.nextInt();
+                            item = new Widget(id, "", 0); // Amount is irrelevant for comparison
+                            Comparable found = (Comparable) am.Find(item);
+                            if (found != null) {
+                                System.out.println("Found item: " + found);
+                            } else {
+                                System.out.println("Item not found.");
+                            }
+                            break;
+                        case 8:
                             System.out.println("Exiting...");
                             break;
 
@@ -227,6 +251,31 @@ public class ArrayManager<T extends Comparable>{
                 System.out.println("Incorrect choice. Please choose again");
             }
         }
+    }
+    //Find Max value in 
+    public T FindMax() {         
+        if (size == 0) {
+            return null; // No elements to compare
+        }
+        T max = (T) items[0]; // Initialize max with the first element
+        for (int i = 1; i < size; i++) {
+            if (((T) items[i]).compareTo(max) > 0) {
+                max = (T) items[i]; // Update max if the current item is greater
+            }
+        }
+        return max;
+    }
+    
+    //finding value on widget in widgets by id
+    //found >> return that widget
+    //not found >> null
+    public T Find(T valueToFind) {
+        for (int i = 0; i < size; i++) {
+            if (items[i].equals(valueToFind)) {
+                return (T) items[i]; // Return the item if it matches the target
+            }
+        }
+        return null; // Return null if no match is found
     }
 
 }

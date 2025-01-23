@@ -8,8 +8,7 @@ package linkedlist;
  *
  * @author PC
  */
-public class ListNode <T extends Comparable>{
-
+public class ListNode<T extends Comparable>{
     private T data;//This could be any type of Data
     public ListNode<T> next;
     public ListNode<T> previous;
@@ -23,7 +22,7 @@ public class ListNode <T extends Comparable>{
         this.previous = null;
     }
 
-    public Object getData() {
+    public T getData() {
         return data;
     }
     /**    
