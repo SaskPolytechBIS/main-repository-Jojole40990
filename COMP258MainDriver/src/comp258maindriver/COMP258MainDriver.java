@@ -16,7 +16,7 @@ import java.util.Random;
  *
  * @author PC
  */
-public class COMP258MainDriver<T extends Comparable> {
+public class COMP258MainDriver {
 
     /**
      * @param args the command line arguments
@@ -24,8 +24,9 @@ public class COMP258MainDriver<T extends Comparable> {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
-        ArrayManager<Widget> arrayManager = new ArrayManager<>();
-        LinkedList<Widget> linkedList = new LinkedList<>();
+
+        ArrayManager arrayManager = new ArrayManager();
+        LinkedList linkedList = new LinkedList();
         //LinkedList ll = new LinkedList();
         int menuOption = 0;
 
@@ -136,7 +137,9 @@ public class COMP258MainDriver<T extends Comparable> {
                                         System.out.print("Enter item ID to find:");
                                         id = scanner.nextInt();
                                         Widget widgetToFind = new Widget(id, "", 0); // Amount is irrelevant for comparison
-                                        Widget foundWidget = arrayManager.Find(widgetToFind);
+                                        //Widget foundWidget = arrayManager.Find(widgetToFind);
+
+                                        Widget foundWidget = arrayManager.find(widgetToFind);
                                         if (foundWidget != null) {
                                             System.out.println("Found item: " + foundWidget);
                                         } else {
@@ -220,7 +223,8 @@ public class COMP258MainDriver<T extends Comparable> {
                                 linkedList.printList();
                                 break;
                             case 8:
-                                Widget maxWidget = linkedList.FindMax();
+                                
+                                Comparable maxWidget = linkedList.FindMax();
                                 if (maxWidget != null) {
                                     System.out.println("Maximum item: " + maxWidget);
                                 } else {
@@ -228,15 +232,16 @@ public class COMP258MainDriver<T extends Comparable> {
                                 }
                                 break;
                             case 9:
+                               
                                 System.out.print("Enter item ID to find:");
                                 id = scanner.nextInt();
                                 Widget widgetToFind = new Widget(id, "", 0); // Amount is irrelevant for comparison
-                                Widget foundWidget = linkedList.Find(widgetToFind);
+                                Comparable foundWidget = linkedList.Find(widgetToFind);
                                 if (foundWidget != null) {
                                     System.out.println("Found item: " + foundWidget);
                                 } else {
                                     System.out.println("Item not found.");
-                                }
+                                } 
                                 break;
                             case 10:
                                 System.out.println("Exiting...");

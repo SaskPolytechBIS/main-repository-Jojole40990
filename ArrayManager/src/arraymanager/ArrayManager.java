@@ -12,7 +12,7 @@ import widget.Widget;
  *
  * @author PC
  */
-public class ArrayManager<T extends Comparable> {
+public class ArrayManager {
 
     private Comparable[] items;//the array that will be storing data
     private int size; // the number of item that will hold in array
@@ -230,10 +230,10 @@ public class ArrayManager<T extends Comparable> {
                         case 7: // Find and display an item by ID
                             System.out.print("Enter item ID to find:");
                             int id = scanner.nextInt();
-                            item = new Widget(id, "", 0); // Amount is irrelevant for comparison
-                            Comparable found = (Comparable) am.Find(item);
-                            if (found != null) {
-                                System.out.println("Found item: " + found);
+                            Widget target = new Widget(id, "", 0); // No need for name or amount to find by ID
+                            Widget foundWidget = am.find(target);
+                            if (foundWidget != null) {
+                                System.out.println("Found item: " + foundWidget);
                             } else {
                                 System.out.println("Item not found.");
                             }
@@ -252,30 +252,27 @@ public class ArrayManager<T extends Comparable> {
             }
         }
     }
-    //Find Max value in 
-    public T FindMax() {         
+
+    public Comparable FindMax() {
         if (size == 0) {
-            return null; // No elements to compare
+            return null;
         }
-        T max = (T) items[0]; // Initialize max with the first element
+        Comparable max = items[0];
         for (int i = 1; i < size; i++) {
-            if (((T) items[i]).compareTo(max) > 0) {
-                max = (T) items[i]; // Update max if the current item is greater
+            if (items[i].compareTo(max) > 0) {
+                max = items[i];
             }
         }
         return max;
     }
-    
-    //finding value on widget in widgets by id
-    //found >> return that widget
-    //not found >> null
-    public T Find(T valueToFind) {
+
+    public Widget find(Widget target) {
         for (int i = 0; i < size; i++) {
-            if (items[i].equals(valueToFind)) {
-                return (T) items[i]; // Return the item if it matches the target
+            if (items[i] != null && items[i].equals(target)) {
+                return (Widget) items[i];  // Safe cast because all items are supposed to be Widgets
             }
         }
-        return null; // Return null if no match is found
+        return null;
     }
 
 }

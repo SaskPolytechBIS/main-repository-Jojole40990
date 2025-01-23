@@ -12,13 +12,13 @@ import widget.Widget;
  *
  * @author PC
  */
-public class LinkedList<T extends Comparable> {
+public class LinkedList{
 
     /**
      * @param args the command line arguments
      */
-    private ListNode<T> items; //this contains the first node in the list
-    private ListNode<T> current; //for now, this will always be the last item in the list
+    private ListNode<Comparable> items; //this contains the first node in the list
+    private ListNode<Comparable> current; //for now, this will always be the last item in the list
     private int size;//the number of nodes in the list
 
     public LinkedList() {
@@ -27,7 +27,7 @@ public class LinkedList<T extends Comparable> {
 
     //create the first node
     //Assump Items is not pointing to anything
-    public LinkedList(ListNode<T> items) {
+    public LinkedList(ListNode<Comparable> items) {
         this.items = items;
         current = items;
         size = 1;
@@ -78,7 +78,7 @@ public class LinkedList<T extends Comparable> {
     }
 
     //return the data of current
-    public T getCurrent() {
+    public Comparable getCurrent() {
         if (current != null) {
             return current.data;
         }else{
@@ -87,9 +87,9 @@ public class LinkedList<T extends Comparable> {
     }
 
     //create a bew node insert it after current
-    public void addAfter(T nodeData) {
-        ListNode<T> newNode = new ListNode(nodeData);
-        ListNode<T> nextNode;
+    public void addAfter(Comparable nodeData) {
+        ListNode<Comparable> newNode = new ListNode(nodeData);
+        ListNode<Comparable> nextNode;
         //if there are no items in the list
         if (size == 0) {
             items = newNode;
@@ -111,7 +111,7 @@ public class LinkedList<T extends Comparable> {
     }
 
     //creat a new node and insert it between current and previouse
-    public void addBefore(T nodeData) {
+    public void addBefore(Comparable nodeData) {
         ListNode newNode = new ListNode(nodeData);
 
         //if there is no item
@@ -204,12 +204,12 @@ public class LinkedList<T extends Comparable> {
     }
 
     //find max in linkedlist
-    public T FindMax() {
+    public Comparable FindMax() {
         if (items == null) {
             return null;
         }
-        T max = items.data;
-        ListNode<T> temp = items.next;
+        Comparable max = items.data;
+        ListNode<Comparable> temp = items.next;
         while (temp != null) {
             if (temp.data.compareTo(max) > 0) {
                 max = temp.data;
@@ -220,8 +220,8 @@ public class LinkedList<T extends Comparable> {
     }
 
     //find list in linkedlist 
-    public T Find(T target) {
-        ListNode<T> temp = items;
+    public Comparable Find(Comparable target) {
+        ListNode<Comparable> temp = items;
         while (temp != null) {
             if (temp.data.equals(target)) {
                 return temp.data;
@@ -247,7 +247,7 @@ public class LinkedList<T extends Comparable> {
 
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
-        LinkedList<Integer> ll = new LinkedList<>();
+        LinkedList ll = new LinkedList();
 
         // Populate with 9 random integers
         System.out.println("Populating LinkedList with 9 random integers...");
