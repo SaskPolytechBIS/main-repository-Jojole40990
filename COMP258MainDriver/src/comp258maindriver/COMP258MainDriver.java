@@ -9,6 +9,7 @@ import arraymanager.NoItemsException;
 import arraymanager.OutOfBoundsException;
 import linkedlist.LinkedList;
 import widget.Widget;
+import genericlinkedlist.GenericLinkedList;
 import java.util.Scanner;
 import java.util.Random;
 
@@ -27,6 +28,7 @@ public class COMP258MainDriver {
 
         ArrayManager arrayManager = new ArrayManager();
         LinkedList linkedList = new LinkedList();
+        GenericLinkedList genericLinkedList = new GenericLinkedList();
         //LinkedList ll = new LinkedList();
         int menuOption = 0;
 
@@ -43,12 +45,14 @@ public class COMP258MainDriver {
         for (Widget widget : widgets) {
             arrayManager.add(widget);
             linkedList.addAfter(widget); // Assuming a method to add at the end or similar
+            genericLinkedList.addAfter(widget);
         }
-        while (menuOption != 3) {
+        while (menuOption != 4) {
             System.out.println("============================");
             System.out.println("1. Manage data with ArrayManager");
             System.out.println("2. Manage data with LinkedList");
-            System.out.println("3. Exit");
+            System.out.println("2. Manage data with GenericLinkedList");
+            System.out.println("4. Exit");
             System.out.println("============================");
             menuOption = scanner.nextInt();
 
@@ -223,7 +227,7 @@ public class COMP258MainDriver {
                                 linkedList.printList();
                                 break;
                             case 8:
-                                
+
                                 Comparable maxWidget = linkedList.FindMax();
                                 if (maxWidget != null) {
                                     System.out.println("Maximum item: " + maxWidget);
@@ -232,7 +236,7 @@ public class COMP258MainDriver {
                                 }
                                 break;
                             case 9:
-                               
+
                                 System.out.print("Enter item ID to find:");
                                 id = scanner.nextInt();
                                 Widget widgetToFind = new Widget(id, "", 0); // Amount is irrelevant for comparison
@@ -241,7 +245,7 @@ public class COMP258MainDriver {
                                     System.out.println("Found item: " + foundWidget);
                                 } else {
                                     System.out.println("Item not found.");
-                                } 
+                                }
                                 break;
                             case 10:
                                 System.out.println("Exiting...");
@@ -252,6 +256,97 @@ public class COMP258MainDriver {
                     }
                     break;
                 case 3:
+                    // GenericLinkedList management is handled in a separate method
+
+                    while (menuOption != 10) {
+                        System.out.println("============================");
+                        System.out.println("1. Set current to start");
+                        System.out.println("2. Advance current");
+                        System.out.println("3. Add before current");
+                        System.out.println("4. Add after current");
+                        System.out.println("5. Delete current");
+                        System.out.println("6. Print current");
+                        System.out.println("7. Print List");
+                        System.out.println("8. Print newest Widget");
+                        System.out.println("9. Print Widget info by Id");
+                        System.out.println("10. Exit LinkedList management");
+                        System.out.println("============================");
+                        menuOption = scanner.nextInt();
+
+                        switch (menuOption) {
+                            case 1:
+                                genericLinkedList.start();
+                                System.out.println("Current set to start.");
+                                break;
+                            case 2:
+                                if (genericLinkedList.advance()) {
+                                    System.out.println("Current advanced to next node.");
+                                } else {
+                                    System.out.println("Cannot advance. Reached end of list.");
+                                }
+                                break;
+                            case 3:
+                                System.out.print("Enter Widget ID: ");
+                                int idBefore = scanner.nextInt();  // Read the Widget ID
+                                System.out.print("Enter Widget Name: ");
+                                String nameBefore = scanner.next();  // Read the Widget Name
+                                System.out.print("Enter Widget Amount: ");
+                                int amountBefore = scanner.nextInt();  // Read the Widget Amount
+                                Widget dataBefore = new Widget(idBefore, nameBefore, amountBefore);
+                                genericLinkedList.addBefore(dataBefore);
+                                System.out.println("Added before current.");
+                                break;
+                            case 4:
+                                System.out.print("Enter Widget ID: ");
+                                int idAfter = scanner.nextInt();  // Read the Widget ID
+                                System.out.print("Enter Widget Name: ");
+                                String nameAfter = scanner.next();  // Read the Widget Name
+                                System.out.print("Enter Widget Amount: ");
+                                int amountAfter = scanner.nextInt();  // Read the Widget Amount
+                                Widget dataAfter = new Widget(idAfter, nameAfter, amountAfter);
+                                genericLinkedList.addAfter(dataAfter);
+                                System.out.println("Added after current.");
+                                break;
+                            case 5:
+                                genericLinkedList.removeCurrent();
+                                System.out.println("Current node removed.");
+                                break;
+                            case 6:
+                                System.out.println("Current node data: " + genericLinkedList.getCurrent());
+                                break;
+                            case 7:
+                                genericLinkedList.printList();
+                                break;
+                            case 8:
+
+                                Widget maxWidget = genericLinkedList.FindMax();
+                                if (maxWidget != null) {
+                                    System.out.println("Maximum item: " + maxWidget);
+                                } else {
+                                    System.out.println("No items to compare.");
+                                }
+                                break;
+                            case 9:
+
+                                System.out.print("Enter item ID to find:");
+                                id = scanner.nextInt();
+                                Widget widgetToFind = new Widget(id, "", 0); // Amount is irrelevant for comparison
+                                Widget foundWidget = genericLinkedList.Find(widgetToFind);
+                                if (foundWidget != null) {
+                                    System.out.println("Found item: " + foundWidget);
+                                } else {
+                                    System.out.println("Item not found.");
+                                }
+                                break;
+                            case 10:
+                                System.out.println("Exiting...");
+                                break;
+                            default:
+                                System.out.println("Invalid choice! Please try again.");
+                        }
+                    }
+                    break;
+                case 4:
                     System.out.println("Exiting the program...");
                     break;
                 default:
