@@ -19,10 +19,6 @@ public class Widget implements Comparable {
     private String name;
     private int amount;
 
-    public Widget() {
-
-    }
-
     public Widget(int id, String name, int amount) {
         this.id = id;
         this.name = name;
@@ -52,15 +48,13 @@ public class Widget implements Comparable {
     public int getAmount() {
         return amount;
     }
-
     @Override
-    /**
-     * formate the current object as a string to reutrns it
-     *
+    /** 
+     * formate the current object as a string to reutrns it 
      * @return Widget#id: name
      */
     public String toString() {
-        return "Widget#" + id + ": " + name;
+        return "Widget#"+id+": "+name;
     }
 
     @Override
@@ -102,71 +96,72 @@ public class Widget implements Comparable {
             result = id == otherWidget.id;//samething as below
             /**
              * samething if(id == otherWidget.id){ result = true; }
-             *
+            *
              */
         }
 
         return result;
     }
 
-
     public static void main(String[] args) {
         /**
-         * Widget w1 = new Widget(1001, "Jojole", 34526); Widget w2 = new
-         * Widget(1001, "Clark", 66666); Widget w3 = new Widget(1003, "Josh",
-         * 888888);
-         *
-         * System.out.println("w1.toString(); "+w1.toString());
-         * System.out.println("w2"+w2); if (w1.compareTo(w2) == 1) {
-         * System.out.println(w1+"is greater than "+w2);
-         *
-         *
-         * } else if (w1.equals(w2)) { System.out.println(w1+" is equal to
-         * "+w2); } else if (w1.compareTo(w2) == -1) {
-         *
-         * System.out.println(w1+" is less than"+w2); }
-        *
-         */
+        Widget w1 = new Widget(1001, "Jojole", 34526);
+        Widget w2 = new Widget(1001, "Clark", 66666);
+        Widget w3 = new Widget(1003, "Josh", 888888);
+
+        System.out.println("w1.toString(); "+w1.toString());
+        System.out.println("w2"+w2);
+        if (w1.compareTo(w2) == 1) {
+            System.out.println(w1+"is greater than "+w2);
+
+
+        } else if (w1.equals(w2)) {
+            System.out.println(w1+" is equal to "+w2);
+        } else if (w1.compareTo(w2) == -1) {
+
+            System.out.println(w1+" is less than"+w2);
+        }
+        * */
         Comparable[] compArry = new Comparable[4];
         compArry[0] = new Widget(1001, "Jojole1", 1111);
         compArry[1] = new Widget(1002, "Jojole2", 2222);
         compArry[2] = new Widget(1003, "Jojole3", 3333);
         compArry[3] = new Widget(1004, "Jojole4", 4444);
-
+        
         //FIND the largest comparable in our array
         //iterate through the collection
-        Widget largestWidget = (Widget) compArry[0];
-        for (int i = 0; i < compArry.length; i++) {
-            if (compArry[i].compareTo(largestWidget) == 1) {
-                largestWidget = (Widget) compArry[i];
+        Widget largestWidget = (Widget)compArry[0];
+        for(int i = 0; i < compArry.length; i++){
+            if(compArry[i].compareTo(largestWidget) == 1){
+                largestWidget = (Widget)compArry[i];
             }
         }
-
-        System.out.println("Largest Widget is " + largestWidget);
-
+        
+        System.out.println("Largest Widget is "+largestWidget);
+        
         //FIND a widget based on an id
         //get the user to enter the id
         Scanner input = new Scanner(System.in);
         int idTOFind;
-
+        
         System.out.print("Enter the id: ");
         idTOFind = input.nextInt();
-
+        
         Widget widgetToFind = new Widget(idTOFind, "", 0);
         boolean widgetFound = false;
         //iterate through collection
-        for (int i = 0; i < compArry.length; i++) {
+        for(int i = 0; i < compArry.length; i++){
             //if the current item matches the widget we are looking for
-            if (widgetToFind.equals(compArry[i])) {
-                widgetToFind = (Widget) compArry[i];
+            if(widgetToFind.equals(compArry[i])){
+                widgetToFind = (Widget)compArry[i];
                 widgetFound = true;
             }
         }
-        if (widgetFound == false) {
+        if(widgetFound == false){
             System.out.println("Coun't find");
-        } else {
-
-            System.out.println("Found" + widgetToFind);
+        }else{
+            
+            System.out.println("Found"+widgetToFind);
         }
     }
 
