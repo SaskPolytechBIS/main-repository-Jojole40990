@@ -28,7 +28,7 @@ public class COMP258MainDriver {
 
         ArrayManager arrayManager = new ArrayManager();
         LinkedList linkedList = new LinkedList();
-        GenericLinkedList genericLinkedList = new GenericLinkedList();
+        GenericLinkedList<Widget> genericLinkedList = new GenericLinkedList<>(); // Ensure it's specified with Widget
         //LinkedList ll = new LinkedList();
         int menuOption = 0;
 
@@ -318,7 +318,6 @@ public class COMP258MainDriver {
                                 genericLinkedList.printList();
                                 break;
                             case 8:
-
                                 Widget maxWidget = genericLinkedList.FindMax();
                                 if (maxWidget != null) {
                                     System.out.println("Maximum item: " + maxWidget);
@@ -326,16 +325,17 @@ public class COMP258MainDriver {
                                     System.out.println("No items to compare.");
                                 }
                                 break;
+
                             case 9:
 
-                                System.out.print("Enter item ID to find:");
+                                System.out.print("Enter Widget ID to find: ");
                                 id = scanner.nextInt();
-                                Widget widgetToFind = new Widget(id, "", 0); // Amount is irrelevant for comparison
-                                Widget foundWidget = genericLinkedList.Find(widgetToFind);
+                                Widget findWidget = new Widget(id, "", 0);  // Example, adjust as needed
+                                Widget foundWidget = genericLinkedList.Find(findWidget);
                                 if (foundWidget != null) {
-                                    System.out.println("Found item: " + foundWidget);
+                                    System.out.println("Found Widget: " + foundWidget);
                                 } else {
-                                    System.out.println("Item not found.");
+                                    System.out.println("Widget not found.");
                                 }
                                 break;
                             case 10:

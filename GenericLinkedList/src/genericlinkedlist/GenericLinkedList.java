@@ -7,11 +7,12 @@ package genericlinkedlist;
 import java.util.Scanner;
 import java.util.Random;
 import widget.Widget;
+
 /**
  *
  * @author PC
  */
-public class GenericLinkedList<T extends Comparable>{
+public class GenericLinkedList<T extends Comparable> {
 
     /**
      * @param args the command line arguments
@@ -80,7 +81,7 @@ public class GenericLinkedList<T extends Comparable>{
     public T getCurrent() {
         if (current != null) {
             return current.data;
-        }else{
+        } else {
             return null;
         }
     }
@@ -205,29 +206,29 @@ public class GenericLinkedList<T extends Comparable>{
     //find max in linkedlist
     public T FindMax() {
         if (items == null) {
-            return null;
+            return null;  // Check if the list is empty
         }
-        T max = items.data;
-        GenericListNode<T> temp = items.next;
-        while (temp != null) {
-            if (temp.data.compareTo(max) > 0) {
-                max = temp.data;
+        GenericListNode<T> current = items;
+        T max = current.data;  // Start with the first element as the max
+        while (current != null) {
+            if (current.data.compareTo(max) > 0) {
+                max = current.data;  // Update max if a greater element is found
             }
-            temp = temp.next;
+            current = current.next;
         }
-        return max;
+        return max;  // Return the maximum element found
     }
 
     //find list in linkedlist 
     public T Find(T target) {
-        GenericListNode<T> temp = items;
-        while (temp != null) {
-            if (temp.data.equals(target)) {
-                return temp.data;
+        GenericListNode<T> current = items;
+        while (current != null) {
+            if (current.data.equals(target)) {
+                return current.data;  // Return the data of the node if it matches the target
             }
-            temp = temp.next;
+            current = current.next;
         }
-        return null;
+        return null;  // Return null if no matching node is found
     }
 
     // Inner class to define the nodes of the LinkedList.

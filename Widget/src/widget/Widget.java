@@ -6,15 +6,7 @@ package widget;
 
 import java.util.Scanner;
 
-/**
- *
- * @author PC
- */
-public class Widget implements Comparable {
-
-    /**
-     * @param args the command line arguments
-     */
+public class Widget implements Comparable<Widget> {
     private int id;
     private String name;
     private int amount;
@@ -22,18 +14,6 @@ public class Widget implements Comparable {
     public Widget(int id, String name, int amount) {
         this.id = id;
         this.name = name;
-        this.amount = amount;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setAmount(int amount) {
         this.amount = amount;
     }
 
@@ -48,80 +28,36 @@ public class Widget implements Comparable {
     public int getAmount() {
         return amount;
     }
+
+    // Implementing the compareTo method to allow sorting by id, or any other criteria you choose.
     @Override
-    /** 
-     * formate the current object as a string to reutrns it 
-     * @return Widget#id: name
-     */
+    public int compareTo(Widget other) {
+        return Integer.compare(this.id, other.id);  // Sort by id
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Widget widget = (Widget) obj;
+        return id == widget.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(id);
+    }
+
+    @Override
     public String toString() {
-        return "Widget#"+id+": "+name;
+        return "Widget{" +
+               "id=" + id +
+               ", name='" + name + '\'' +
+               ", amount=" + amount +
+               '}';
     }
+        public static void main(String[] args) {
 
-    @Override
-    /**
-     * Check the value of this against the value of O if o is a widget, compare
-     * the ids if o is not a widget, return -1
-     *
-     * @param o: the object to compare against this
-     * @return" return 1 if greater than o, 1 0 if this is equeal to o, and -1
-     * if this is less than 0
-     */
-    public int compareTo(Object O) {
-        int result = -1;
-        //check to see if o is of type widget
-        //yes, store value in var clled otherWidget
-        if (O instanceof Widget otherWidget) {
-            if (id > otherWidget.id) {
-                result = 1;
-            } else if (id == otherWidget.id) {
-                result = 0;
-            } else if (id < otherWidget.id) {
-                result = -1;
-            }
-        }
-
-        return result;
-    }
-
-    /**
-     * if o is not a widget, return false if o is a widget, check if it's id
-     * matches this.id
-     *
-     * @param o the object to compare
-     * @return true if this equal to o, false if it not or if o is not a widget
-     */
-    public boolean equals(Object o) {
-        boolean result = false;
-        if (o instanceof Widget otherWidget) {
-            result = id == otherWidget.id;//samething as below
-            /**
-             * samething if(id == otherWidget.id){ result = true; }
-            *
-             */
-        }
-
-        return result;
-    }
-
-    public static void main(String[] args) {
-        /**
-        Widget w1 = new Widget(1001, "Jojole", 34526);
-        Widget w2 = new Widget(1001, "Clark", 66666);
-        Widget w3 = new Widget(1003, "Josh", 888888);
-
-        System.out.println("w1.toString(); "+w1.toString());
-        System.out.println("w2"+w2);
-        if (w1.compareTo(w2) == 1) {
-            System.out.println(w1+"is greater than "+w2);
-
-
-        } else if (w1.equals(w2)) {
-            System.out.println(w1+" is equal to "+w2);
-        } else if (w1.compareTo(w2) == -1) {
-
-            System.out.println(w1+" is less than"+w2);
-        }
-        * */
         Comparable[] compArry = new Comparable[4];
         compArry[0] = new Widget(1001, "Jojole1", 1111);
         compArry[1] = new Widget(1002, "Jojole2", 2222);
@@ -164,5 +100,4 @@ public class Widget implements Comparable {
             System.out.println("Found"+widgetToFind);
         }
     }
-
 }
