@@ -22,6 +22,10 @@ public class ListNode<T extends Comparable>{
         this.previous = null;
     }
 
+    public ListNode<T> getNext() {
+        return next;
+    }
+
     public T getData() {
         return data;
     }

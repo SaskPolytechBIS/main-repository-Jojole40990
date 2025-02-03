@@ -4,6 +4,8 @@
  */
 package recursivefunctions;
 
+import linkedlist.LinkedList;
+import linkedlist.ListNode;
 
 public class RecursiveFunctions {
 
@@ -56,4 +58,23 @@ public class RecursiveFunctions {
             System.out.print("   ");
         }
     }
+    
+
+    // Method to recursively print list nodes
+    public void printListRecursively(ListNode<Comparable> node) {
+        if (node != null) {
+            System.out.println(node.getData());
+            printListRecursively(node.getNext());
+        }
+    }
+
+    // Method to recursively print list nodes backwards
+    public void printListBackwardsRecursively(ListNode<Comparable> node) {
+        if (node == null) {
+            return;
+        }
+        printListBackwardsRecursively(node.getNext());
+        System.out.println(node.getData());
+    }
+
 }

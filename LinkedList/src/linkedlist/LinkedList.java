@@ -22,7 +22,9 @@ public class LinkedList{
     private int size;//the number of nodes in the list
 
     public LinkedList() {
-
+        this.items = null;
+        this.current = null;
+        this.size = 0;
     }
 
     //create the first node
@@ -33,6 +35,11 @@ public class LinkedList{
         size = 1;
     }
 
+    public ListNode<Comparable> getItems() {
+        return items;
+    }
+
+    
     public int getSize() {
         return size;
     }
@@ -243,6 +250,20 @@ public class LinkedList{
         }
     }
 
+     public void printListRecursively(ListNode node) {
+        if (node != null) {
+            System.out.println(node.data);
+            printListRecursively(node.next);  // Proceed to the next node recursively
+        }
+    }
+
+    public void printListBackwardsRecursively(ListNode node) {
+        if (node == null) {
+            return; // Base case: end of list
+        }
+        printListBackwardsRecursively(node.next);  // Go to the end of the list
+        System.out.println(node.data);  // Print nodes on the return path
+    }
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);

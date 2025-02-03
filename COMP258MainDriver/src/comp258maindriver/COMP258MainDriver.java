@@ -8,6 +8,7 @@ import arraymanager.ArrayManager;
 import arraymanager.NoItemsException;
 import arraymanager.OutOfBoundsException;
 import linkedlist.LinkedList;
+import linkedlist.ListNode;
 import widget.Widget;
 import genericlinkedlist.GenericLinkedList;
 import recursivefunctions.RecursiveFunctions;
@@ -188,6 +189,7 @@ public class COMP258MainDriver {
                         switch (menuOption) {
                             case 1:
                                 linkedList.start();
+
                                 System.out.println("Current set to start.");
                                 break;
                             case 2:
@@ -350,7 +352,7 @@ public class COMP258MainDriver {
                     }
                     break;
                 case 4:
-                    showcaseRecursiveFunctions(scanner, recursivefunctions);
+                    showcaseRecursiveFunctions(scanner, recursivefunctions, linkedList);
                     break;
                 case 5:
                     System.out.println("Exiting the program...");
@@ -362,7 +364,7 @@ public class COMP258MainDriver {
         scanner.close();
     }
 
-    private static void showcaseRecursiveFunctions(Scanner scanner, RecursiveFunctions recursiveFunctions) {
+    private static void showcaseRecursiveFunctions(Scanner scanner, RecursiveFunctions recursiveFunctions, LinkedList linkedList) {
         int option;
         do {
             System.out.println("============================");
@@ -407,10 +409,12 @@ public class COMP258MainDriver {
                     recursiveFunctions.indentoTron(levels, 1);
                     break;
                 case 6:
-                    // Call recursive print method for linked list here
+                    System.out.println("Printing linked list recursively:");
+                    linkedList.printListRecursively(linkedList.getItems());
                     break;
                 case 7:
-                    // Call recursive reverse print method for linked list here
+                    System.out.println("Printing linked list backwards recursively:");
+                    linkedList.printListBackwardsRecursively(linkedList.getItems());
                     break;
                 case 8:
                     System.out.println("Returning to main menu...");
