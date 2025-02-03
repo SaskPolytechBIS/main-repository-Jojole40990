@@ -10,6 +10,7 @@ import arraymanager.OutOfBoundsException;
 import linkedlist.LinkedList;
 import widget.Widget;
 import genericlinkedlist.GenericLinkedList;
+import recursivefunctions.RecursiveFunctions;
 import java.util.Scanner;
 import java.util.Random;
 
@@ -29,6 +30,7 @@ public class COMP258MainDriver {
         ArrayManager arrayManager = new ArrayManager();
         LinkedList linkedList = new LinkedList();
         GenericLinkedList<Widget> genericLinkedList = new GenericLinkedList<>(); // Ensure it's specified with Widget
+        RecursiveFunctions recursivefunctions = new RecursiveFunctions();
         //LinkedList ll = new LinkedList();
         int menuOption = 0;
 
@@ -47,12 +49,13 @@ public class COMP258MainDriver {
             linkedList.addAfter(widget); // Assuming a method to add at the end or similar
             genericLinkedList.addAfter(widget);
         }
-        while (menuOption != 4) {
+        while (menuOption != 5) {
             System.out.println("============================");
             System.out.println("1. Manage data with ArrayManager");
             System.out.println("2. Manage data with LinkedList");
-            System.out.println("2. Manage data with GenericLinkedList");
-            System.out.println("4. Exit");
+            System.out.println("3. Manage data with GenericLinkedList");
+            System.out.println("4. Showcase recursive functions");
+            System.out.println("5. Exit");
             System.out.println("============================");
             menuOption = scanner.nextInt();
 
@@ -347,6 +350,9 @@ public class COMP258MainDriver {
                     }
                     break;
                 case 4:
+                    showcaseRecursiveFunctions(scanner, recursivefunctions);
+                    break;
+                case 5:
                     System.out.println("Exiting the program...");
                     break;
                 default:
@@ -356,4 +362,62 @@ public class COMP258MainDriver {
         scanner.close();
     }
 
+    private static void showcaseRecursiveFunctions(Scanner scanner, RecursiveFunctions recursiveFunctions) {
+        int option;
+        do {
+            System.out.println("============================");
+            System.out.println("1. Calculate factorial");
+            System.out.println("2. Calculate powers");
+            System.out.println("3. Check if a word is a palindrome");
+            System.out.println("4. Print Fibonacci sequence");
+            System.out.println("5. Run Indent-o-tron");
+            System.out.println("6. Print linked list with recursion");
+            System.out.println("7. Print linked list backwards with recursion");
+            System.out.println("8. Exit program");
+            System.out.println("============================");
+            System.out.print("Select a recursive function to showcase: ");
+            option = scanner.nextInt();
+
+            switch (option) {
+                case 1:
+                    System.out.print("Enter a number to calculate factorial: ");
+                    int num = scanner.nextInt();
+                    System.out.println("Factorial of " + num + " is " + recursiveFunctions.factorial(num));
+                    break;
+                case 2:
+                    System.out.print("Enter base number: ");
+                    int base = scanner.nextInt();
+                    System.out.print("Enter exponent: ");
+                    int exp = scanner.nextInt();
+                    System.out.println(base + " raised to the power of " + exp + " is " + recursiveFunctions.myPow(base, exp));
+                    break;
+                case 3:
+                    System.out.print("Enter a word to check if it's a palindrome: ");
+                    String word = scanner.next();
+                    System.out.println("Is palindrome: " + recursiveFunctions.isPalindrome(word, 0, word.length() - 1));
+                    break;
+                case 4:
+                    System.out.print("How many Fibonacci numbers to print? ");
+                    int count = scanner.nextInt();
+                    recursiveFunctions.printFibonacci(count);
+                    break;
+                case 5:
+                    System.out.print("Enter the number of levels for Indent-o-tron: ");
+                    int levels = scanner.nextInt();
+                    recursiveFunctions.indentoTron(levels, 1);
+                    break;
+                case 6:
+                    // Call recursive print method for linked list here
+                    break;
+                case 7:
+                    // Call recursive reverse print method for linked list here
+                    break;
+                case 8:
+                    System.out.println("Returning to main menu...");
+                    break;
+                default:
+                    System.out.println("Invalid choice! Please try again.");
+            }
+        } while (option != 8);
+    }
 }
