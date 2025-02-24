@@ -12,6 +12,7 @@ import linkedlist.ListNode;
 import widget.Widget;
 import genericlinkedlist.GenericLinkedList;
 import recursivefunctions.RecursiveFunctions;
+import binarysearchtree.BinarySearchTree;
 import java.util.Scanner;
 import java.util.Random;
 
@@ -30,9 +31,9 @@ public class COMP258MainDriver {
 
         ArrayManager arrayManager = new ArrayManager();
         LinkedList linkedList = new LinkedList();
-        GenericLinkedList<Widget> genericLinkedList = new GenericLinkedList<>(); // Ensure it's specified with Widget
+        GenericLinkedList<Widget> genericLinkedList = new GenericLinkedList<>();
         RecursiveFunctions recursivefunctions = new RecursiveFunctions();
-        //LinkedList ll = new LinkedList();
+        BinarySearchTree<Integer> binarySearchTree = new BinarySearchTree<>();
         int menuOption = 0;
 
         // Create Widget objects
@@ -50,13 +51,14 @@ public class COMP258MainDriver {
             linkedList.addAfter(widget); // Assuming a method to add at the end or similar
             genericLinkedList.addAfter(widget);
         }
-        while (menuOption != 5) {
+        while (menuOption != 6) {
             System.out.println("============================");
             System.out.println("1. Manage data with ArrayManager");
             System.out.println("2. Manage data with LinkedList");
             System.out.println("3. Manage data with GenericLinkedList");
             System.out.println("4. Showcase recursive functions");
-            System.out.println("5. Exit");
+            System.out.println("5. Manage data with a Binary Search Tree");
+            System.out.println("6. Exit");
             System.out.println("============================");
             menuOption = scanner.nextInt();
 
@@ -352,9 +354,117 @@ public class COMP258MainDriver {
                     }
                     break;
                 case 4:
-                    showcaseRecursiveFunctions(scanner, recursivefunctions, linkedList);
+                    menuOption = 0;
+                    while (menuOption != 8) {
+                        System.out.println("============================");
+                        System.out.println("1. Calculate factorial");
+                        System.out.println("2. Calculate powers");
+                        System.out.println("3. Check if a word is a palindrome");
+                        System.out.println("4. Print Fibonacci sequence");
+                        System.out.println("5. Run Indent-o-tron");
+                        System.out.println("6. Print linked list with recursion");
+                        System.out.println("7. Print linked list backwards with recursion");
+                        System.out.println("8. Exit program");
+                        System.out.println("============================");
+                        System.out.print("Select a recursive function to showcase: ");
+                        menuOption = scanner.nextInt();
+
+                        switch (menuOption) {
+                            case 1:
+                                System.out.print("Enter a number to calculate factorial: ");
+                                int num = scanner.nextInt();
+                                System.out.println("Factorial of " + num + " is " + recursivefunctions.factorial(num));
+                                break;
+                            case 2:
+                                System.out.print("Enter base number: ");
+                                int base = scanner.nextInt();
+                                System.out.print("Enter exponent: ");
+                                int exp = scanner.nextInt();
+                                System.out.println(base + " raised to the power of " + exp + " is " + recursivefunctions.myPow(base, exp));
+                                break;
+                            case 3:
+                                System.out.print("Enter a word to check if it's a palindrome: ");
+                                String word = scanner.next();
+                                System.out.println("Is palindrome: " + recursivefunctions.isPalindrome(word, 0, word.length() - 1));
+                                break;
+                            case 4:
+                                System.out.print("How many Fibonacci numbers to print? ");
+                                int count = scanner.nextInt();
+                                recursivefunctions.printFibonacci(count);
+                                break;
+                            case 5:
+                                System.out.print("Enter the number of levels for Indent-o-tron: ");
+                                int levels = scanner.nextInt();
+                                recursivefunctions.indentoTron(levels, 1);
+                                break;
+                            case 6:
+                                System.out.println("Printing linked list recursively:");
+                                linkedList.printListRecursively(linkedList.getItems());
+                                break;
+                            case 7:
+                                System.out.println("Printing linked list backwards recursively:");
+                                linkedList.printListBackwardsRecursively(linkedList.getItems());
+                                break;
+                            case 8:
+                                System.out.println("Returning to main menu...");
+                                break;
+                            default:
+                                System.out.println("Invalid choice! Please try again.");
+                        }
+                    }
+                        break;
+                    
+            
+            case 5:
+                    menuOption = 0;
+                    while (menuOption != 7) {
+                        System.out.println("============================");
+                        System.out.println("1. Add item");
+                        System.out.println("2. Check if item exists");
+                        System.out.println("3. Print Binary Search Tree Forward (Ascending)");
+                        System.out.println("4. Print Binary Search Tree Backward (Descending)");
+                        System.out.println("5. Print smallest item");
+                        System.out.println("6. Print largest item");
+                        System.out.println("7. Exit");
+                        System.out.println("============================");
+                        menuOption = scanner.nextInt();
+
+                        switch (menuOption) {
+                            case 1:
+                                System.out.print("Enter number to add: ");
+                                int numToAdd = scanner.nextInt();
+                                binarySearchTree.addNode(numToAdd);
+                                System.out.println(numToAdd + " added to BST.");
+                                break;
+                            case 2:
+                                System.out.print("Enter number to search: ");
+                                int numToSearch = scanner.nextInt();
+                                boolean found = binarySearchTree.searchTree(numToSearch);
+                                System.out.println(numToSearch + " is " + (found ? "found" : "not found") + " in the BST.");
+                                break;
+                            case 3:
+                                System.out.println("Binary Search Tree (Ascending Order):");
+                                binarySearchTree.printTree();
+                                break;
+                            case 4:
+                                System.out.println("Binary Search Tree (Descending Order):");
+                                binarySearchTree.printTreeDescending();
+                                break;
+                            case 5:
+                                binarySearchTree.printSmallest();
+                                break;
+                            case 6:
+                                binarySearchTree.printLargest();
+                                break;
+                            case 7:
+                                System.out.println("Exiting BST menu...");
+                                break;
+                            default:
+                                System.out.println("Invalid choice! Please try again.");
+                        }
+                    }
                     break;
-                case 5:
+                case 6:
                     System.out.println("Exiting the program...");
                     break;
                 default:
@@ -362,66 +472,6 @@ public class COMP258MainDriver {
             }
         }
         scanner.close();
-    }
+        }
 
-    private static void showcaseRecursiveFunctions(Scanner scanner, RecursiveFunctions recursiveFunctions, LinkedList linkedList) {
-        int option;
-        do {
-            System.out.println("============================");
-            System.out.println("1. Calculate factorial");
-            System.out.println("2. Calculate powers");
-            System.out.println("3. Check if a word is a palindrome");
-            System.out.println("4. Print Fibonacci sequence");
-            System.out.println("5. Run Indent-o-tron");
-            System.out.println("6. Print linked list with recursion");
-            System.out.println("7. Print linked list backwards with recursion");
-            System.out.println("8. Exit program");
-            System.out.println("============================");
-            System.out.print("Select a recursive function to showcase: ");
-            option = scanner.nextInt();
-
-            switch (option) {
-                case 1:
-                    System.out.print("Enter a number to calculate factorial: ");
-                    int num = scanner.nextInt();
-                    System.out.println("Factorial of " + num + " is " + recursiveFunctions.factorial(num));
-                    break;
-                case 2:
-                    System.out.print("Enter base number: ");
-                    int base = scanner.nextInt();
-                    System.out.print("Enter exponent: ");
-                    int exp = scanner.nextInt();
-                    System.out.println(base + " raised to the power of " + exp + " is " + recursiveFunctions.myPow(base, exp));
-                    break;
-                case 3:
-                    System.out.print("Enter a word to check if it's a palindrome: ");
-                    String word = scanner.next();
-                    System.out.println("Is palindrome: " + recursiveFunctions.isPalindrome(word, 0, word.length() - 1));
-                    break;
-                case 4:
-                    System.out.print("How many Fibonacci numbers to print? ");
-                    int count = scanner.nextInt();
-                    recursiveFunctions.printFibonacci(count);
-                    break;
-                case 5:
-                    System.out.print("Enter the number of levels for Indent-o-tron: ");
-                    int levels = scanner.nextInt();
-                    recursiveFunctions.indentoTron(levels, 1);
-                    break;
-                case 6:
-                    System.out.println("Printing linked list recursively:");
-                    linkedList.printListRecursively(linkedList.getItems());
-                    break;
-                case 7:
-                    System.out.println("Printing linked list backwards recursively:");
-                    linkedList.printListBackwardsRecursively(linkedList.getItems());
-                    break;
-                case 8:
-                    System.out.println("Returning to main menu...");
-                    break;
-                default:
-                    System.out.println("Invalid choice! Please try again.");
-            }
-        } while (option != 8);
-    }
 }
