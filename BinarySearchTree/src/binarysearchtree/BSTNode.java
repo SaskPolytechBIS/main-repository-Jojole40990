@@ -28,41 +28,57 @@ public class BSTNode<T extends Comparable> {
 
     //use the rules of our binary search tree to add child node   
     public void add(T newData) {
-
-        if (newData.compareTo(data) == -1) {
-            if (left != null) {
+        if (newData.compareTo(data) < 0) {  // Go left
+            if (left == null) {
+                left = new BSTNode<>(newData);
+            } else {
                 left.add(newData);
-
-            } else {
-                //the newData is smaller than the data of current node
-                BSTNode<T> newNode = new BSTNode<T>(newData);
-                left = newNode;
-                System.out.println("Adding: " + newData + " to the left of: " + data);
-
             }
-
-        }
-
-        //the newData is larger than the data of current node
-        if (newData.compareTo(data) == 1) {
-            if (right != null) {
-                
-                right.add(newData);
+        } else if (newData.compareTo(data) > 0) {  // Go right
+            if (right == null) {
+                right = new BSTNode<>(newData);
             } else {
-                BSTNode<T> newNode = new BSTNode<T>(newData);
-                right = newNode;
-                System.out.println("Adding: " + newData + " to the right of: " + data);
+                right.add(newData);
             }
         }
     }
 
     //search the tree and return a Boolean 
     public boolean searchTree(T dataToFind) {
-        return true;
+        if (data.equals(dataToFind)) {
+            return true;  // Found
+        } else if (dataToFind.compareTo(data) < 0) {
+            return left != null && left.searchTree(dataToFind);
+        } else {
+            return right != null && right.searchTree(dataToFind);
+        }
     }
 
     //print out all of the elements of the tree in order
     public void printTree() {
+        if (left != null) {
+            left.printTree();
+        }
+        System.out.print(data + " ");
+        if (right != null) {
+            right.printTree();
+        }
+    }
+    
+    // Print tree in descending order
+    public void printTreeDescending() {
+        if (right != null) right.printTreeDescending();
+        System.out.print(data + " ");
+        if (left != null) left.printTreeDescending();
+    }
 
+    // Get the smallest value in the BST
+    public T getSmallest() {
+        return (left == null) ? data : left.getSmallest();
+    }
+
+    // Get the largest value in the BST
+    public T getLargest() {
+        return (right == null) ? data : right.getLargest();
     }
 }

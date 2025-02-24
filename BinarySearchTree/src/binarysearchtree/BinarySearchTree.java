@@ -1,34 +1,68 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package binarysearchtree;
 
-/**
- *
- * @author PC
- */
-public class BinarySearchTree {
+public class BinarySearchTree<T extends Comparable<T>> {
+    private BSTNode<T> root;
+    private int size;
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        BSTNode<Integer> root = new BSTNode(7);
-        
-        root.add(4);
-        root.add(2);
-        root.add(9);
-        root.add(1);
-        root.add(12);
-        root.add(10);
-        root.add(8);
-        root.add(5);
-        root.add(3);
-        root.add(13);
-        root.add(13);
-        root.add(7);
-        
+    public BinarySearchTree() {
+        this.root = null;
+        this.size = 0;
     }
-    
+
+    public int getSize() {
+        return size;
+    }
+
+    // Add a node to the tree
+    public void addNode(T nodeData) {
+        if (root == null) {
+            root = new BSTNode<>(nodeData);
+        } else {
+            root.add(nodeData);
+        }
+        size++;
+    }
+
+    // Print the tree in ascending order
+    public void printTree() {
+        if (root != null) {
+            root.printTree();
+            System.out.println();
+        } else {
+            System.out.println("Tree is empty.");
+        }
+    }
+
+    // Print the tree in descending order
+    public void printTreeDescending() {
+        if (root != null) {
+            root.printTreeDescending();
+            System.out.println();
+        } else {
+            System.out.println("Tree is empty.");
+        }
+    }
+
+    // Search for an item in the tree
+    public boolean searchTree(T dataToFind) {
+        return root != null && root.searchTree(dataToFind);
+    }
+
+    // Print the smallest item
+    public void printSmallest() {
+        if (root != null) {
+            System.out.println("Smallest item: " + root.getSmallest());
+        } else {
+            System.out.println("Tree is empty.");
+        }
+    }
+
+    // Print the largest item
+    public void printLargest() {
+        if (root != null) {
+            System.out.println("Largest item: " + root.getLargest());
+        } else {
+            System.out.println("Tree is empty.");
+        }
+    }
 }
