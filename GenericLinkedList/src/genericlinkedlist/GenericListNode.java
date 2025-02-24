@@ -2,37 +2,31 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package linkedlist;
+package genericlinkedlist;
 
 /**
  *
  * @author PC
  */
-public class ListNode<T extends Comparable>{
+public class GenericListNode<T extends Comparable> {
     private T data;//This could be any type of Data
-    public ListNode<T> next;
-    public ListNode<T> previous;
+    public GenericListNode<T> next;
+    public GenericListNode<T> previous;
 
-    public ListNode() {
+    public GenericListNode() {
     }
 
-    public ListNode(T data) {
+    public GenericListNode(T data) {
         this.data = data;
         this.next = null;
         this.previous = null;
     }
 
-    public ListNode<T> getNext() {
-        return next;
+    public void setData(T nodeData) {
+        this.data = nodeData;
     }
 
     public T getData() {
         return data;
     }
-    /**    
-        public void setData(Object data) {
-        this.data = data;
-    }
-    */
-
 }

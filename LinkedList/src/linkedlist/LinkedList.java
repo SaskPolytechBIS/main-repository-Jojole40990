@@ -6,38 +6,49 @@ package linkedlist;
 
 import java.util.Scanner;
 import java.util.Random;
+import widget.Widget;
+
 /**
  *
  * @author PC
  */
-public class LinkedList {
+public class LinkedList{
 
     /**
      * @param args the command line arguments
      */
-    private ListNode items; //this contains the first node in the list
-    private ListNode current; //for now, this will always be the last item in the list
+    private ListNode<Comparable> items; //this contains the first node in the list
+    private ListNode<Comparable> current; //for now, this will always be the last item in the list
     private int size;//the number of nodes in the list
 
     public LinkedList() {
-
+        this.items = null;
+        this.current = null;
+        this.size = 0;
     }
 
     //create the first node
     //Assump Items is not pointing to anything
-    public LinkedList(ListNode items) {
+    public LinkedList(ListNode<Comparable> items) {
         this.items = items;
         current = items;
         size = 1;
     }
 
+    public ListNode<Comparable> getItems() {
+        return items;
+    }
+
+    
     public int getSize() {
         return size;
     }
+
     //set current to the beginning of the list
     public void start() {
         current = items;
     }
+
     //if there is a next node, change current to be equal to the next node in the list
     public boolean advance() {
         // returns true if current is able to go to the next node
@@ -73,17 +84,19 @@ public class LinkedList {
         return result; // Return the result which is either true (could move back) or false.
     }
 
-
     //return the data of current
-    public Object getCurrent() {
-        return current.getData();
+    public Comparable getCurrent() {
+        if (current != null) {
+            return current.data;
+        }else{
+            return null;
+        }
     }
 
-
     //create a bew node insert it after current
-    public void addAfter(Object nodeData) {
-        ListNode newNode = new ListNode(nodeData);
-        ListNode nextNode;
+    public void addAfter(Comparable nodeData) {
+        ListNode<Comparable> newNode = new ListNode(nodeData);
+        ListNode<Comparable> nextNode;
         //if there are no items in the list
         if (size == 0) {
             items = newNode;
@@ -105,7 +118,7 @@ public class LinkedList {
     }
 
     //creat a new node and insert it between current and previouse
-    public void addBefore(Object nodeData) {
+    public void addBefore(Comparable nodeData) {
         ListNode newNode = new ListNode(nodeData);
 
         //if there is no item
@@ -140,7 +153,7 @@ public class LinkedList {
             ListNode parser = items;
 
             do {
-                System.out.println("Node Data: " + parser.getData());
+                System.out.println("Node Data: " + parser.data);
                 parser = parser.next;
 
             } while (parser != null);
@@ -148,7 +161,7 @@ public class LinkedList {
     }
 
     public void printCurrent() {
-        System.out.println("current: " + current.getData());
+        System.out.println("current: " + current.data);
     }
 
     //remove current node
@@ -197,6 +210,60 @@ public class LinkedList {
         return previousNode;
     }
 
+    //find max in linkedlist
+    public Comparable FindMax() {
+        if (items == null) {
+            return null;
+        }
+        Comparable max = items.data;
+        ListNode<Comparable> temp = items.next;
+        while (temp != null) {
+            if (temp.data.compareTo(max) > 0) {
+                max = temp.data;
+            }
+            temp = temp.next;
+        }
+        return max;
+    }
+
+    //find list in linkedlist 
+    public Comparable Find(Comparable target) {
+        ListNode<Comparable> temp = items;
+        while (temp != null) {
+            if (temp.data.equals(target)) {
+                return temp.data;
+            }
+            temp = temp.next;
+        }
+        return null;
+    }
+
+    // Inner class to define the nodes of the LinkedList.
+    private static class ListNode<T> {
+
+        T data;
+        ListNode<T> next;
+
+        ListNode(T data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+     public void printListRecursively(ListNode node) {
+        if (node != null) {
+            System.out.println(node.data);
+            printListRecursively(node.next);  // Proceed to the next node recursively
+        }
+    }
+
+    public void printListBackwardsRecursively(ListNode node) {
+        if (node == null) {
+            return; // Base case: end of list
+        }
+        printListBackwardsRecursively(node.next);  // Go to the end of the list
+        System.out.println(node.data);  // Print nodes on the return path
+    }
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
@@ -223,7 +290,6 @@ public class LinkedList {
             System.out.println("9. Exit LinkedList management");
             System.out.println("============================");
             menuOption = scanner.nextInt();
-
             switch (menuOption) {
                 case 1:
                     ll.start();
@@ -246,13 +312,13 @@ public class LinkedList {
                     break;
                 case 4:
                     System.out.print("Enter value to add before current: ");
-                    Object dataBefore = scanner.next();
+                    int dataBefore = scanner.nextInt();
                     ll.addBefore(dataBefore);
                     System.out.println("Added before current.");
                     break;
                 case 5:
                     System.out.print("Enter value to add after current: ");
-                    Object dataAfter = scanner.next();
+                    int dataAfter = scanner.nextInt();
                     ll.addAfter(dataAfter);
                     System.out.println("Added after current.");
                     break;
@@ -273,51 +339,5 @@ public class LinkedList {
                     System.out.println("Invalid choice! Please try again.");
             }
         }
-        /**
-         * // TODO code application logic here LinkedList ll = new LinkedList();
-         * ll.addBefore(11); ll.printList(); ll.printCurrent();
-         *
-         * System.out.println("--- Remove ---");
-         *
-         * ll.removeCurrent(); ll.printList(); ll.removeCurrent();
-         *
-         * System.out.println("--Reborn---"); ll.addAfter("ll"); ll.printList();
-         * /* System.out.println("--- Adding items to list ---");
-         *
-         * ll.add(11); ll.add(22); ll.add(33); ll.add(44); ll.add(55);
-         *
-         * System.out.println("--- Printing List ---"); ll.printList();
-         *
-         * System.out.println("--- Set current to 33 ---"); ll.start();//11
-         * ll.advance();//22 ll.advance();//33 System.out.println("the balue
-         * is:" + ll.getCurrent());
-         *
-         * System.out.println("--- Add after ---"); ll.addAfter("newNode");
-         * ll.addAfter("newNode2"); ll.addAfter("newNode3"); ll.printList();
-         * System.out.println("The amount of items in our list is: " +
-         * ll.getSize());
-         *
-         *
-         * System.out.println("call before----");
-         *
-         * System.out.println("current "+ll.getCurrent());
-         * ll.addBefore("newNode!!");
-         *
-         * ll.printList();
-         *
-         * ll.printCurrent();
-         */
-        /*
-        System.out.println("--- Using Current ---");
-        ll.start();
-
-        do {
-            //print the data in current
-            System.out.println("The data in current is: " + ll.getCurrent());
-
-        } while (ll.advance() == true); // while there is a next item to go to keep looping
-    
-         */
-
     }
 }
