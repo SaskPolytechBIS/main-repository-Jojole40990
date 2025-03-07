@@ -354,6 +354,7 @@ public class COMP258MainDriver {
                     }
                     break;
                 case 4:
+                    //recursive
                     menuOption = 0;
                     while (menuOption != 8) {
                         System.out.println("============================");
@@ -416,6 +417,7 @@ public class COMP258MainDriver {
                     
             
             case 5:
+                    //BST
                     menuOption = 0;
                     while (menuOption != 7) {
                         System.out.println("============================");
